@@ -7,8 +7,8 @@
 -debug:full
 -nostdlib
 -nologo
-"C:\Users\Laten\Documents\Visual Studio 2015\Projects\DATA\src\DATA\obj\Debug\netcoreapp1.0\dotnet-compile.assemblyinfo.cs"
--out:"C:\Users\Laten\Documents\Visual Studio 2015\Projects\DATA\src\DATA\bin\Debug\netcoreapp1.0\DATA.dll"
+"C:\Users\Laten\Source\Repos\JP-Project\src\DATA\obj\Debug\netcoreapp1.0\dotnet-compile.assemblyinfo.cs"
+-out:"C:\Users\Laten\Source\Repos\JP-Project\src\DATA\bin\Debug\netcoreapp1.0\DATA.dll"
 -r:"C:\Users\Laten\.nuget\packages\Microsoft.ApplicationInsights\2.1.0\lib\dotnet5.4\Microsoft.ApplicationInsights.dll"
 -r:"C:\Users\Laten\.nuget\packages\Microsoft.ApplicationInsights.AspNetCore\1.0.0\lib\netstandard1.6\Microsoft.ApplicationInsights.AspNetCore.dll"
 -r:"C:\Users\Laten\.nuget\packages\Microsoft.AspNetCore.Antiforgery\1.0.1\lib\netstandard1.3\Microsoft.AspNetCore.Antiforgery.dll"
@@ -192,7 +192,7 @@
 -r:"C:\Users\Laten\.nuget\packages\System.Threading.Timer\4.0.1\ref\netstandard1.2\System.Threading.Timer.dll"
 -r:"C:\Users\Laten\.nuget\packages\System.Xml.ReaderWriter\4.0.11\ref\netstandard1.3\System.Xml.ReaderWriter.dll"
 -r:"C:\Users\Laten\.nuget\packages\System.Xml.XDocument\4.0.11\ref\netstandard1.3\System.Xml.XDocument.dll"
--resource:"C:\Users\Laten\Documents\Visual Studio 2015\Projects\DATA\src\DATA\obj\Debug\netcoreapp1.0\DATAdotnet-compile.deps.json",DATA.deps.json
-"C:\Users\Laten\Documents\Visual Studio 2015\Projects\DATA\src\DATA\Program.cs"
-"C:\Users\Laten\Documents\Visual Studio 2015\Projects\DATA\src\DATA\Startup.cs"
-"C:\Users\Laten\Documents\Visual Studio 2015\Projects\DATA\src\DATA\Controllers\HomeController.cs"
+-resource:"C:\Users\Laten\Source\Repos\JP-Project\src\DATA\obj\Debug\netcoreapp1.0\DATAdotnet-compile.deps.json",DATA.deps.json
+"C:\Users\Laten\Source\Repos\JP-Project\src\DATA\Program.cs"
+"C:\Users\Laten\Source\Repos\JP-Project\src\DATA\Startup.cs"
+"C:\Users\Laten\Source\Repos\JP-Project\src\DATA\Controllers\HomeController.cs"
