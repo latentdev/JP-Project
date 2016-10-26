@@ -1,0 +1,6 @@
+.vs/config/applicationhost.config
+.vs/DATA/v14/.suo
+*.dll
+src/DATA/bin/Debug/netcoreapp1.0/DATA.pdb
+*.rsp
+src/DATA/obj/Debug/netcoreapp1.0/.IncrementalCache
