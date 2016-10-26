@@ -36,5 +36,11 @@ namespace DATA.Controllers
         {
             return View();
         }
+
+        public JsonResult Search(string search)
+        {
+
+            return Json(new { foo = search });
+        }
     }
 }
