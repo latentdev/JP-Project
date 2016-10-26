@@ -47,15 +47,17 @@ namespace DATA.Controllers
             WebRequest request;
             request = WebRequest.Create(sURL);
             Stream objStream;
-            objStream = request.GetResponse().GetResponseStream();
-
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new System.Uri(sURL));
-            request.BeginGetResponse(new AsyncCallback(ReadWebRequestCallback), request);
-            request.EndGetResponse(new IAsyncResult());*/
-            string tweets =null;
+            objStream = request.GetResponse().GetResponseStream();*/
+            //string tweets =null;
             bool searching = true;
             Auth.SetUserCredentials("6AJKMgHTk5L0qUZX1tumVrcf6", "Z6LQQdlzH7vQca56wRdTaLaokvrORtWKUzYovwLLKXDwnGh9O2", "23288297-GKQtuIQzm8xEXGrpocnYiqn2HGMLE84BqWvcYH11n", "r1KgCO7P3TxkhJKzmkwbUPCCWMsy9GYKf1EMMXFUA0h1t");
-            var stream = Tweetinvi.Stream.CreateFilteredStream();
+            var searchParameter = new Tweetinvi.Parameters.SearchTweetsParameters(search)
+            {
+                Lang = Tweetinvi.Models.LanguageFilter.English,
+                MaximumNumberOfResults = 1000,
+            };
+            var tweets = Tweetinvi.Search.SearchTweets(searchParameter);
+            /*var stream = Tweetinvi.Stream.CreateFilteredStream();
             stream.AddTrack(search);
             stream.MatchingTweetReceived += (sender, args) =>
             {
@@ -74,21 +76,8 @@ namespace DATA.Controllers
             while (searching)
             {
                 stream.StartStreamMatchingAllConditions();
-            }
+            }*/
             return Json(new { foo = tweets });
-        }
-
-        private void ReadWebRequestCallback(IAsyncResult callbackResult)
-        {
-            HttpWebRequest myRequest = (HttpWebRequest)callbackResult.AsyncState;
-            using (HttpWebResponse myResponse = (HttpWebResponse)myRequest.EndGetResponse(callbackResult))
-            {
-                using (StreamReader httpwebStreamReader = new StreamReader(myResponse.GetResponseStream()))
-                {
-                    string results = httpwebStreamReader.ReadToEnd();
-                 
-                }
-            }
         }
     }
 }
