@@ -3,6 +3,19 @@
   "version": 2,
   "targets": {
     ".NETCoreApp,Version=v1.0": {
+      "Autofac/4.1.0": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "System.ComponentModel": "4.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        }
+      },
       "Libuv/1.9.0": {
         "type": "package",
         "dependencies": {
@@ -3872,10 +3885,54 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
+      },
+      "TweetinviAPI/1.1.1": {
+        "type": "package",
+        "dependencies": {
+          "Autofac": "4.1.0",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.5/NET1.5.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Controllers.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Core.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Credentials.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Factories.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Logic.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Security.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Streams.dll": {},
+          "lib/netstandard1.5/Tweetinvi.WebLogic.dll": {},
+          "lib/netstandard1.5/Tweetinvi.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.5/NET1.5.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Controllers.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Core.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Credentials.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Factories.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Logic.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Security.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Streams.dll": {},
+          "lib/netstandard1.5/Tweetinvi.WebLogic.dll": {},
+          "lib/netstandard1.5/Tweetinvi.dll": {}
+        }
       }
     }
   },
   "libraries": {
+    "Autofac/4.1.0": {
+      "sha512": "PZlRrOjtQ/pyxoA/oDuyFsKlL/toYIxfL4wQvm9TY7lj+/jeQHQIlJ832nwvPFBlOuRZQErHsfsGmo3zW+pCxA==",
+      "type": "package",
+      "path": "Autofac/4.1.0",
+      "files": [
+        "Autofac.4.1.0.nupkg.sha512",
+        "Autofac.nuspec",
+        "lib/net45/Autofac.dll",
+        "lib/net45/Autofac.xml",
+        "lib/netstandard1.1/Autofac.dll",
+        "lib/netstandard1.1/Autofac.xml"
+      ]
+    },
     "Libuv/1.9.0": {
       "sha512": "9Q7AaqtQhS8JDSIvRBt6ODSLWDBI4c8YxNxyCQemWebBFUtBbc6M5Vi5Gz1ZyIUlTW3rZK9bIr5gnVyv0z7a2Q==",
       "type": "package",
@@ -9984,6 +10041,59 @@
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._"
       ]
+    },
+    "TweetinviAPI/1.1.1": {
+      "sha512": "59zLwW4s9eGiYnpkMsH/xCT/sJu1ZLPnmfjuPzC4dpQUXloGkHL5YI8NGLwY96/a8fGHAr1K0Nwmr/lEQX09Hw==",
+      "type": "package",
+      "path": "TweetinviAPI/1.1.1",
+      "files": [
+        "TweetinviAPI.1.1.1.nupkg.sha512",
+        "TweetinviAPI.nuspec",
+        "lib/net40/Tweetinvi.dll",
+        "lib/net45/Tweetinvi.dll",
+        "lib/netstandard1.0/NET1.0.dll",
+        "lib/netstandard1.0/Tweetinvi.Controllers.dll",
+        "lib/netstandard1.0/Tweetinvi.Core.dll",
+        "lib/netstandard1.0/Tweetinvi.Credentials.dll",
+        "lib/netstandard1.0/Tweetinvi.Factories.dll",
+        "lib/netstandard1.0/Tweetinvi.Logic.dll",
+        "lib/netstandard1.0/Tweetinvi.Security.dll",
+        "lib/netstandard1.0/Tweetinvi.Streams.dll",
+        "lib/netstandard1.0/Tweetinvi.WebLogic.dll",
+        "lib/netstandard1.0/Tweetinvi.dll",
+        "lib/netstandard1.5/NET1.5.dll",
+        "lib/netstandard1.5/Tweetinvi.Controllers.dll",
+        "lib/netstandard1.5/Tweetinvi.Core.dll",
+        "lib/netstandard1.5/Tweetinvi.Credentials.dll",
+        "lib/netstandard1.5/Tweetinvi.Factories.dll",
+        "lib/netstandard1.5/Tweetinvi.Logic.dll",
+        "lib/netstandard1.5/Tweetinvi.Security.dll",
+        "lib/netstandard1.5/Tweetinvi.Streams.dll",
+        "lib/netstandard1.5/Tweetinvi.WebLogic.dll",
+        "lib/netstandard1.5/Tweetinvi.dll",
+        "lib/portable-net40+sl5+wp80+win8+wpa81/Tweetinvi.dll",
+        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/DNX_CORE50.dll",
+        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.Controllers.dll",
+        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.Core.dll",
+        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.Credentials.dll",
+        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.Factories.dll",
+        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.Logic.dll",
+        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.Security.dll",
+        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.Streams.dll",
+        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.WebLogic.dll",
+        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Tweetinvi.dll",
+        "lib/uap10.0/Tweetinvi.Controllers.dll",
+        "lib/uap10.0/Tweetinvi.Core.dll",
+        "lib/uap10.0/Tweetinvi.Credentials.dll",
+        "lib/uap10.0/Tweetinvi.Factories.dll",
+        "lib/uap10.0/Tweetinvi.Logic.dll",
+        "lib/uap10.0/Tweetinvi.Security.dll",
+        "lib/uap10.0/Tweetinvi.Streams.dll",
+        "lib/uap10.0/Tweetinvi.WebLogic.dll",
+        "lib/uap10.0/Tweetinvi.dll",
+        "tools/Cheatsheet.cs",
+        "tools/install.ps1"
+      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -10003,7 +10113,8 @@
       "Microsoft.Extensions.Logging.Debug >= 1.0.0",
       "Microsoft.Extensions.Options.ConfigurationExtensions >= 1.0.0",
       "Microsoft.NETCore.App >= 1.0.1",
-      "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0"
+      "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0",
+      "TweetinviAPI >= 1.1.1"
     ],
     ".NETCoreApp,Version=v1.0": []
   },

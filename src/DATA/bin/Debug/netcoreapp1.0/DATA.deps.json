@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.0",
-    "signature": "943276bd15ec7ab571f2bddd6761d660c75b21cc"
+    "signature": "6b70726e5fb2612a9fb150a7fa87e96f7868b043"
   },
   "compilationOptions": {
     "defines": [
@@ -30,13 +30,26 @@
           "Microsoft.Extensions.Logging.Console": "1.0.0",
           "Microsoft.Extensions.Logging.Debug": "1.0.0",
           "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
-          "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0"
+          "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
+          "TweetinviAPI": "1.1.1"
         },
         "runtime": {
           "DATA.dll": {}
         },
         "compile": {
           "DATA.dll": {}
+        }
+      },
+      "Autofac/4.1.0": {
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "System.ComponentModel": "4.0.1"
+        },
+        "runtime": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.1/Autofac.dll": {}
         }
       },
       "Microsoft.ApplicationInsights/2.1.0": {
@@ -1638,6 +1651,36 @@
         },
         "compile": {
           "lib/netstandard1.0/System.Text.Encodings.Web.dll": {}
+        }
+      },
+      "TweetinviAPI/1.1.1": {
+        "dependencies": {
+          "Autofac": "4.1.0",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "runtime": {
+          "lib/netstandard1.5/NET1.5.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Controllers.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Core.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Credentials.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Factories.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Logic.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Security.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Streams.dll": {},
+          "lib/netstandard1.5/Tweetinvi.WebLogic.dll": {},
+          "lib/netstandard1.5/Tweetinvi.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.5/NET1.5.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Controllers.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Core.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Credentials.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Factories.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Logic.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Security.dll": {},
+          "lib/netstandard1.5/Tweetinvi.Streams.dll": {},
+          "lib/netstandard1.5/Tweetinvi.WebLogic.dll": {},
+          "lib/netstandard1.5/Tweetinvi.dll": {}
         }
       },
       "Libuv/1.9.0": {
@@ -3280,6 +3323,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Autofac/4.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PZlRrOjtQ/pyxoA/oDuyFsKlL/toYIxfL4wQvm9TY7lj+/jeQHQIlJ832nwvPFBlOuRZQErHsfsGmo3zW+pCxA=="
+    },
     "Microsoft.ApplicationInsights/2.1.0": {
       "type": "package",
       "serviceable": true,
@@ -3784,6 +3832,11 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-TWZnuiJgPDAEEUfobD7njXvSVR2Toz+jvKWds6yL4oSztmKQfnWzucczjzA+6Dv1bktBdY71sZW1YN0X6m9chQ=="
+    },
+    "TweetinviAPI/1.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-59zLwW4s9eGiYnpkMsH/xCT/sJu1ZLPnmfjuPzC4dpQUXloGkHL5YI8NGLwY96/a8fGHAr1K0Nwmr/lEQX09Hw=="
     },
     "Libuv/1.9.0": {
       "type": "package",
