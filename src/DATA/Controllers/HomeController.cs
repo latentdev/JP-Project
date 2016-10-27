@@ -6,6 +6,7 @@ using System.Net;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Tweetinvi;
+using DATA.Helper;
 
 namespace DATA.Controllers
 {
@@ -43,13 +44,17 @@ namespace DATA.Controllers
         public JsonResult Search(string search)
         {
 
+            Tweets tweet = new SearchTweets(new Helper.oath());
+            var temp = Json(tweet.Search(search, 10000).ToJson());
+            return temp;
             /*string sURL = "https://api.twitter.com/1.1/search/tweets.json" + "?q=" + WebUtility.UrlEncode(search);
             WebRequest request;
             request = WebRequest.Create(sURL);
             Stream objStream;
             objStream = request.GetResponse().GetResponseStream();*/
             //string tweets =null;
-            bool searching = true;
+            /*bool searching = true;
+
             Auth.SetUserCredentials("6AJKMgHTk5L0qUZX1tumVrcf6", "Z6LQQdlzH7vQca56wRdTaLaokvrORtWKUzYovwLLKXDwnGh9O2", "23288297-GKQtuIQzm8xEXGrpocnYiqn2HGMLE84BqWvcYH11n", "r1KgCO7P3TxkhJKzmkwbUPCCWMsy9GYKf1EMMXFUA0h1t");
             var searchParameter = new Tweetinvi.Parameters.SearchTweetsParameters(search)
             {
@@ -77,7 +82,7 @@ namespace DATA.Controllers
             {
                 stream.StartStreamMatchingAllConditions();
             }*/
-            return Json(new { foo = tweets });
+
         }
     }
 }
