@@ -45,7 +45,7 @@ namespace DATA.Controllers
         {
 
             Tweets tweet = new SearchTweets(new Helper.oath());
-            var temp = Json(tweet.Search(search, 10000).ToJson());
+            var temp = Json(tweet.Search(search, 10).ToJson());
             return temp;
             /*string sURL = "https://api.twitter.com/1.1/search/tweets.json" + "?q=" + WebUtility.UrlEncode(search);
             WebRequest request;
