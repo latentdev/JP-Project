@@ -20,6 +20,7 @@ namespace DATA.Helper
 
         public IEnumerable<Tweetinvi.Models.ITweet> Search(string search, int count = 1000)
         {
+            SQL sql = new SQL();
             Auth.SetUserCredentials(creds.get_consumer_key(), creds.get_consumer_secret(), creds.get_access_token(), creds.get_access_secret());
             var searchParameter = new Tweetinvi.Parameters.SearchTweetsParameters(search)
             {
@@ -27,6 +28,7 @@ namespace DATA.Helper
                 MaximumNumberOfResults = count
             };
             var tweets = Tweetinvi.Search.SearchTweets(searchParameter);
+            sql.StoreTweets(tweets);
             return tweets;
         }
     }
