@@ -22,9 +22,10 @@ namespace DATA.Helper
             try
             {
                 twitterDB.Open();
-                foreach(Tweetinvi.Models.ITweet tweet in tweets)
+                SqlCommand myCommand;
+                foreach (var tweet in tweets)
                 {
-                    SqlCommand myCommand = new SqlCommand("INSERT INTO tweets (ID, text,full_text,tweet_length,place,created,created_by,retweeted,retweet_count,is_retweet,favorited,favorite_count,published,source,url) " +
+                    myCommand = new SqlCommand("INSERT INTO tweets (ID, text,full_text,tweet_length,place,created,created_by,retweeted,retweet_count,is_retweet,favorited,favorite_count,published,source,url) " +
                                      "Values ("+tweet.Id+","+
                                                 "'"+tweet.Text+"'"+","+
                                                 "'"+tweet.FullText+"'"+","+
@@ -40,8 +41,11 @@ namespace DATA.Helper
                                                 "'"+tweet.IsTweetPublished+"'"+","+
                                                 "'"+tweet.Source+"'"+","+
                                                 "'"+tweet.Url+"'"+")", twitterDB);
+                    
                     myCommand.ExecuteNonQuery();
+                    myCommand.Dispose();
                 }
+
                 twitterDB.Close();
             }
             catch(Exception e)
@@ -49,6 +53,10 @@ namespace DATA.Helper
                 Console.WriteLine(e.ToString());
             }
 
+        }
+        public void Dispose()
+        {
+            twitterDB.Dispose();
         }
 
     }

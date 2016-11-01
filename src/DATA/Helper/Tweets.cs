@@ -29,10 +29,11 @@ namespace DATA.Helper
             };
             var tweets = Tweetinvi.Search.SearchTweets(searchParameter);
             sql.StoreTweets(tweets);
+            sql.Dispose();
             return tweets;
         }
     }
-
+    // do not use this function yet. It does nothing at the moment.
     public class StreamTweets:Tweets
     {
         oath creds;

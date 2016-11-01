@@ -12,6 +12,7 @@ namespace DATA.Helper
         string ACCESS_TOKEN;
         string ACCESS_SECRET;
 
+        //for now oath creds are hard coded, but once db functionality is solid they will be moved to a table in the db. future implementation will use a hash to store the creds for better security or they will be moved to appsettings.json.
         public oath()
         {
             CONSUMER_KEY = "6AJKMgHTk5L0qUZX1tumVrcf6";
