@@ -12,8 +12,9 @@ namespace DATA.Helper
         SqlConnection twitterDB;
        public SQL()
         {
-            string temp = ConfigurationManager.ConnectionStrings["TwitterDB"].ConnectionString;
-            twitterDB = new SqlConnection(temp);
+            //var temp2 = ConfigurationManager.ConnectionStrings["TwitterDB"];
+            //var temp = temp2.ConnectionString;
+            twitterDB = new SqlConnection("Server = tcp:pounddata.database.windows.net, 1433; Initial Catalog = TwitterDB; Persist Security Info = False; uid = juniorproject; Password = DonnyCordova64; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;");
         }
 
         public void StoreTweets(IEnumerable<Tweetinvi.Models.ITweet> tweets)
@@ -25,21 +26,23 @@ namespace DATA.Helper
                 {
                     SqlCommand myCommand = new SqlCommand("INSERT INTO tweets (ID, text,full_text,tweet_length,place,created,created_by,retweeted,retweet_count,is_retweet,favorited,favorite_count,published,source,url) " +
                                      "Values ("+tweet.Id+","+
-                                                tweet.Text+","+
-                                                tweet.FullText+","+
+                                                "'"+tweet.Text+"'"+","+
+                                                "'"+tweet.FullText+"'"+","+
                                                 tweet.PublishedTweetLength+","+
-                                                tweet.Place+","+
-                                                tweet.CreatedAt+","+
-                                                tweet.CreatedBy+","+
-                                                tweet.Retweeted+","+
+                                                "'"+tweet.Place+"'"+","+
+                                                "convert(datetime,'"+tweet.CreatedAt+"',101)"+","+
+                                                "'"+tweet.CreatedBy+"'"+","+
+                                                "'"+tweet.Retweeted+"'"+","+
                                                 tweet.RetweetCount+","+
-                                                tweet.IsRetweet+","+
-                                                tweet.Favorited+","+
+                                                "'"+tweet.IsRetweet+"'"+","+
+                                                "'"+tweet.Favorited+"'"+","+
                                                 tweet.FavoriteCount+","+
-                                                tweet.IsTweetPublished+","+
-                                                tweet.Source+","+
-                                                tweet.Url+")", twitterDB);
+                                                "'"+tweet.IsTweetPublished+"'"+","+
+                                                "'"+tweet.Source+"'"+","+
+                                                "'"+tweet.Url+"'"+")", twitterDB);
+                    myCommand.ExecuteNonQuery();
                 }
+                twitterDB.Close();
             }
             catch(Exception e)
             {
