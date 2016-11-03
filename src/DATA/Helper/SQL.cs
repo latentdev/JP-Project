@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace DATA.Helper
 {
@@ -21,10 +22,15 @@ namespace DATA.Helper
         {
             try
             {
+                Regex apos = new Regex("'");
                 twitterDB.Open();
                 SqlCommand myCommand;
                 foreach (var tweet in tweets)
                 {
+                    tweet.Text = apos.Replace(tweet.Text, "''");
+                    tweet.FullText = apos.Replace(tweet.FullText, "''");
+                    string user = tweet.CreatedBy.ToString();
+                      user = apos.Replace(user, "''");
                     myCommand = new SqlCommand("INSERT INTO tweets (ID, text,full_text,tweet_length,place,created,created_by,retweeted,retweet_count,is_retweet,favorited,favorite_count,published,source,url) " +
                                      "Values ("+tweet.Id+","+
                                                 "'"+tweet.Text+"'"+","+
@@ -32,7 +38,7 @@ namespace DATA.Helper
                                                 tweet.PublishedTweetLength+","+
                                                 "'"+tweet.Place+"'"+","+
                                                 "convert(datetime,'"+tweet.CreatedAt+"',101)"+","+
-                                                "'"+tweet.CreatedBy+"'"+","+
+                                                "'"+user+"'"+","+
                                                 "'"+tweet.Retweeted+"'"+","+
                                                 tweet.RetweetCount+","+
                                                 "'"+tweet.IsRetweet+"'"+","+
@@ -45,7 +51,6 @@ namespace DATA.Helper
                     myCommand.ExecuteNonQuery();
                     myCommand.Dispose();
                 }
-
                 twitterDB.Close();
             }
             catch(Exception e)
