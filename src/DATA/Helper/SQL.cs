@@ -22,34 +22,31 @@ namespace DATA.Helper
         {
             try
             {
-                Regex apos = new Regex("'");
                 twitterDB.Open();
-                SqlCommand myCommand;
                 foreach (var tweet in tweets)
                 {
-                    tweet.Text = apos.Replace(tweet.Text, "''");
-                    tweet.FullText = apos.Replace(tweet.FullText, "''");
-                    string user = tweet.CreatedBy.ToString();
-                      user = apos.Replace(user, "''");
-                    myCommand = new SqlCommand("INSERT INTO tweets (ID, text,full_text,tweet_length,place,created,created_by,retweeted,retweet_count,is_retweet,favorited,favorite_count,published,source,url) " +
-                                     "Values ("+tweet.Id+","+
-                                                "'"+tweet.Text+"'"+","+
-                                                "'"+tweet.FullText+"'"+","+
-                                                tweet.PublishedTweetLength+","+
-                                                "'"+tweet.Place+"'"+","+
-                                                "convert(datetime,'"+tweet.CreatedAt+"',101)"+","+
-                                                "'"+user+"'"+","+
-                                                "'"+tweet.Retweeted+"'"+","+
-                                                tweet.RetweetCount+","+
-                                                "'"+tweet.IsRetweet+"'"+","+
-                                                "'"+tweet.Favorited+"'"+","+
-                                                tweet.FavoriteCount+","+
-                                                "'"+tweet.IsTweetPublished+"'"+","+
-                                                "'"+tweet.Source+"'"+","+
-                                                "'"+tweet.Url+"'"+")", twitterDB);
-                    
-                    myCommand.ExecuteNonQuery();
-                    myCommand.Dispose();
+                    using (SqlCommand command = new SqlCommand("dbo.InsertTweet", twitterDB))
+                    {
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@ID", tweet.Id);
+                        command.Parameters.AddWithValue("@text", tweet.Text);
+                        command.Parameters.AddWithValue("@full_text", tweet.FullText);
+                        command.Parameters.AddWithValue("@tweet_length", tweet.PublishedTweetLength);
+                        command.Parameters.AddWithValue("@place", " ");
+                        command.Parameters.AddWithValue("@created", tweet.CreatedAt);
+                        command.Parameters.AddWithValue("@created_by", tweet.CreatedBy.ScreenName);
+                        command.Parameters.AddWithValue("@retweeted", tweet.Retweeted);
+                        command.Parameters.AddWithValue("@retweet_count", tweet.RetweetCount);
+                        command.Parameters.AddWithValue("@is_retweet", tweet.IsRetweet);
+                        command.Parameters.AddWithValue("@favorited", tweet.Favorited);
+                        command.Parameters.AddWithValue("@favorite_count", tweet.FavoriteCount);
+                        command.Parameters.AddWithValue("@published", tweet.IsTweetPublished);
+                        command.Parameters.AddWithValue("@source", tweet.Source);
+                        command.Parameters.AddWithValue("@url", tweet.Url);
+
+
+                        command.ExecuteNonQuery();
+                    }
                 }
                 twitterDB.Close();
             }
