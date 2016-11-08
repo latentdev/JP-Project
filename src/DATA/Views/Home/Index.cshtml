@@ -3,13 +3,28 @@
 }
 <div id="middle">
     <div id="backimage">
-        <!----<img src="~/images/DATA.png" width="800" height="384"></-->
         <p id="title">#DATA</p>
     </div>
     <div id="tfheader">
-        <form id="tfnewsearch" method="get" asp-area="" asp-controller="Home" asp-action="Graphs">
-            <input type="text" class="tftextinput" placeholder="Enter Query Here" name="q" size="21" maxlength="120"><input type="submit" class="tfbutton" value=" ">
-        </form>
+          
+            <input id="search" type="text" class="tftextinput" placeholder="Enter Query Here" name="q" size="21" maxlength="120"><input id="submit" type="submit" class="tfbutton" value=" ">
+         
     </div>
+    <div><p id="tweets"></p></div>
     <div style="margin-top:36vh"></div>
 </div>
+
+<script type="text/javascript">
+    $ = jQuery;
+    function handleResults(data) {
+        $("#tweets").text(data);
+    };
+
+    $('#submit').click(function () {
+        $.ajax('@Url.Action("search", "Home")', {
+            method: 'POST',
+            data: {search: $('#search').val()},
+            success: handleResults
+        });
+    });
+</script>
