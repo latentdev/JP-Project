@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.0",
-    "signature": "b87c69932d9835095eac81b24968160f90ab5a16"
+    "signature": "714b3fa46f068a365e88da88873b1ac577f5370a"
   },
   "compilationOptions": {
     "defines": [
@@ -17,7 +17,6 @@
       "DATA/1.0.0": {
         "dependencies": {
           "Microsoft.NETCore.App": "1.0.1",
-          "Microsoft.ApplicationInsights.AspNetCore": "1.0.0",
           "Microsoft.AspNetCore.Diagnostics": "1.0.0",
           "Microsoft.AspNetCore.Mvc": "1.0.1",
           "Microsoft.AspNetCore.Routing": "1.0.1",
@@ -33,7 +32,9 @@
           "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
           "TweetinviAPI": "1.1.1",
           "System.Data.SqlClient": "4.3.0-preview1-24530-04",
-          "CoreCompat.System.Configuration": "4.2.3-r4"
+          "CoreCompat.System.Configuration": "4.2.3-r4",
+          "d3": "4.3.0",
+          "Microsoft.ApplicationInsights.AspNetCore": "1.0.2"
         },
         "runtime": {
           "DATA.dll": {}
@@ -79,6 +80,7 @@
           "lib/netstandard1.5/CoreCompat.System.Configuration.dll": {}
         }
       },
+      "d3/4.3.0": {},
       "Microsoft.ApplicationInsights/2.1.0": {
         "dependencies": {
           "System.Collections": "4.3.0-preview1-24530-04",
@@ -108,7 +110,7 @@
           "lib/dotnet5.4/Microsoft.ApplicationInsights.dll": {}
         }
       },
-      "Microsoft.ApplicationInsights.AspNetCore/1.0.0": {
+      "Microsoft.ApplicationInsights.AspNetCore/1.0.2": {
         "dependencies": {
           "Microsoft.ApplicationInsights": "2.1.0",
           "Microsoft.AspNetCore.Hosting.Abstractions": "1.0.0",
@@ -3722,15 +3724,20 @@
       "serviceable": true,
       "sha512": "sha512-vlGOEEQmH6iWiKRo4VKFO9xNCNfDkj7VrRhA3PHH5o8AHMbP4mCsTc7kkdCW/aGkL9masA892qYCZWaxRq6iCw=="
     },
+    "d3/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/6fDB3BNsDkQ3Gnb43d2IYX4iHmrF4TB2JVtrte5iTeWFPw78M9HNRqs1NHQg96Lr35ddAsC1L0Zi78nbl8q4A=="
+    },
     "Microsoft.ApplicationInsights/2.1.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-mviO8PLQd3r22Pmv8JfjYzTCQ9ByhkU9wdC4fwd6WmAARwAMgMw9HEbHeYS3r+8pB3w+fZMi7p4LKijzgNybRQ=="
     },
-    "Microsoft.ApplicationInsights.AspNetCore/1.0.0": {
+    "Microsoft.ApplicationInsights.AspNetCore/1.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-t1O4hbatuHU4BJnuBZ4zmx6fNoTryyZO/NwxwqmMUbuHyvil3elkOZvX3pJWlUTOk6/wyRXItGKBiW4uDET6Kw=="
+      "sha512": "sha512-2pe22FuypQRT5YNd4cIehYqDduxiQzt1o/585LgG6vJmOfuX7aF2h4uSI5epRrvu1EikuoZEzBchAR6U8cBybQ=="
     },
     "Microsoft.AspNetCore.Antiforgery/1.0.1": {
       "type": "package",
