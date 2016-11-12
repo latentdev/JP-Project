@@ -16,7 +16,7 @@
 --reference:C:\Users\Laten\.nuget\packages\Autofac\4.1.0\lib\netstandard1.1\Autofac.dll
 --reference:C:\Users\Laten\.nuget\packages\CoreCompat.System.Configuration\4.2.3-r4\lib\netstandard1.5\CoreCompat.System.Configuration.dll
 --reference:C:\Users\Laten\.nuget\packages\Microsoft.ApplicationInsights\2.1.0\lib\dotnet5.4\Microsoft.ApplicationInsights.dll
---reference:C:\Users\Laten\.nuget\packages\Microsoft.ApplicationInsights.AspNetCore\1.0.0\lib\netstandard1.6\Microsoft.ApplicationInsights.AspNetCore.dll
+--reference:C:\Users\Laten\.nuget\packages\Microsoft.ApplicationInsights.AspNetCore\1.0.2\lib\netstandard1.6\Microsoft.ApplicationInsights.AspNetCore.dll
 --reference:C:\Users\Laten\.nuget\packages\Microsoft.AspNetCore.Antiforgery\1.0.1\lib\netstandard1.3\Microsoft.AspNetCore.Antiforgery.dll
 --reference:C:\Users\Laten\.nuget\packages\Microsoft.AspNetCore.Authorization\1.0.0\lib\netstandard1.3\Microsoft.AspNetCore.Authorization.dll
 --reference:C:\Users\Laten\.nuget\packages\Microsoft.AspNetCore.Cors\1.0.0\lib\netstandard1.3\Microsoft.AspNetCore.Cors.dll
@@ -219,7 +219,9 @@
 --resource:"C:\Users\Laten\Documents\GitHub\JP-Project\src\DATA\obj\Release\netcoreapp1.0\DATAdotnet-compile.deps.json",DATA.deps.json
 C:\Users\Laten\Documents\GitHub\JP-Project\src\DATA\Program.cs
 C:\Users\Laten\Documents\GitHub\JP-Project\src\DATA\Startup.cs
+C:\Users\Laten\Documents\GitHub\JP-Project\src\DATA\Controllers\GraphController.cs
 C:\Users\Laten\Documents\GitHub\JP-Project\src\DATA\Controllers\HomeController.cs
+C:\Users\Laten\Documents\GitHub\JP-Project\src\DATA\Helper\Analysis.cs
 C:\Users\Laten\Documents\GitHub\JP-Project\src\DATA\Helper\oath.cs
 C:\Users\Laten\Documents\GitHub\JP-Project\src\DATA\Helper\SQL.cs
 C:\Users\Laten\Documents\GitHub\JP-Project\src\DATA\Helper\Tweets.cs
