@@ -3,18 +3,18 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#00644E;}
+	.st0{fill:#FF6200;}
 	.st1{fill:#E1004C;}
-	.st2{fill:#00A47F;}
-	.st3{fill:#FF6200;}
+	.st2{fill:#00644E;}
+	.st3{fill:#00A47F;}
 	.st4{fill:#70E500;}
-	.st5{fill:none;}
 </style>
-<rect id="XMLID_1_" x="6" y="474.1" class="st0" width="500" height="31.9"/>
-<polygon id="XMLID_2_" class="st1" points="470.3,474.1 470.3,98.1 409.9,47.3 297.4,57.3 203.6,153.1 95.9,222.1 60.9,327 
-	40.8,474.1 120.8,474.1 "/>
-<polygon id="XMLID_3_" class="st2" points="470.3,139.4 376.3,113 214.7,201.3 158,288.2 93.4,315 40.8,474.1 470.3,474.1 "/>
-<polygon id="XMLID_4_" class="st3" points="470.3,161.5 285.5,246.9 40.8,474.1 470.3,474.1 "/>
-<polygon id="XMLID_5_" class="st4" points="470.3,227.2 390.3,329.4 247.2,415.3 40.8,474.1 470.3,474.1 "/>
-<line id="XMLID_6_" class="st5" x1="505.3" y1="474.1" x2="470.3" y2="474.1"/>
+<polyline id="XMLID_8_" class="st0" points="506,475.1 506,475.1 506,86 444,9.5 377.7,121 256,84 203.7,173.9 86.9,166 6,475.1 "/>
+<polyline id="XMLID_6_" class="st1" points="506,474.1 506,474.1 506,116.8 448,75 377.7,166 283,116.4 203.7,245.2 134.4,189.3 
+	6,474.1 "/>
+<rect id="XMLID_1_" x="6" y="474.1" class="st2" width="500" height="31.9"/>
+<polyline id="XMLID_7_" class="st3" points="506,474.1 506,474.1 506,159.4 464.9,115.8 377.7,236.3 323.8,208.8 203.7,358.8 
+	159.9,314.6 6,474.1 "/>
+<polyline id="XMLID_9_" class="st4" points="506,474.1 506,474.1 506,177.9 464.9,203.9 429.9,288.5 323.8,291.4 203.7,391.4 
+	159.9,364.3 6,474.1 "/>
 </svg>

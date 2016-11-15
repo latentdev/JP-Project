@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Net;
-using System.IO;
 using Microsoft.AspNetCore.Mvc;
-using Tweetinvi;
-using DATA.Helper;
 
 namespace DATA.Controllers
 {

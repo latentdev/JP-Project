@@ -80,7 +80,6 @@ td{
 	}
     #middle{
         margin-top: 25vh;
-        position:relative;
     }
     #middle-table{
         margin-top: 10vh;
@@ -93,8 +92,6 @@ td{
 	}
     #title{
         font-size:10vmax; 
-        height:auto;
-        margin-bottom:0px;
     }
     #tfheader{
         margin-top:-3vw;
@@ -103,76 +100,7 @@ td{
         margin-top: auto;
 		margin-right:auto; 
 		margin-left:auto; 
-        
 	}
-    #options{
-        display:none;
-        margin-top:-3px;
-        margin-left:2vw;
-        height:52px;
-        background-color:#ffffff;
-        border-bottom-left-radius: 5px 5px;
-        border-bottom-right-radius: 5px 5px;
-        box-shadow: 6px 6px 2px #100f0f;
-    }
-    #tweets{
-        display:none;
-        margin-right:inherit; 
-		margin-left:inherit; 
-        font-size:1vmax;
-        width:inherit;
-        height:80vh;
-    }
-    #icons{
-        float:left;
-        width:10%;
-        min-width:64px;
-        height:inherit;
-    }
-    #data{
-        float:right;
-        width:90%;
-        height:inherit;
-        background-color:inherit;
-    }
-    #page{
-        min-width: 64px;
-       
-        margin:20px;
-        margin-left:0px;
-        background-color:#353535;
-        box-shadow: 7px 7px 2px #100f0f;
-    }
-    #tweettext{
-        color:#9D9D9D;
-    }
-    #graph{
-        float:right;
-        margin:20px;
-        background-color:#353535;
-        box-shadow: 7px 7px 2px #100f0f;
-        height:85%;
-        margin-right:0px;
-        margin-left:0px;
-        overflow:auto;
-         width:98%;
-         position:relative;
-    }
-    #graph::-webkit-scrollbar{
-        
-        width:10px;
-        height:10px;
-    }
-    #graph::-webkit-scrollbar-track{
-        background-color:#353535;
-    }
-    #graph::-webkit-scrollbar-thumb{
-           background-color:#E1004C;
-           border-radius: 3px;
-    }
-    #graph::-webkit-scrollbar-corner{
-        background-color:#353535;
-    }
 	.tftextinput{
 		margin: 0;
 		width: 90%;
@@ -182,7 +110,6 @@ td{
 		border:1px solid #ffffff; border-right:0px;
 		border-top-left-radius: 5px 5px;
 		border-bottom-left-radius: 5px 5px;
-        box-shadow: 6px 6px 2px #100f0f;
 	}
     table.center {
     margin-left:auto; 
@@ -199,15 +126,13 @@ td{
 		text-align: center;
 		text-decoration: none;
 		color: #ffffff;
-		border: solid 1px #E1004C; border-right:0px;
-		background: #E1004C;
-		background-image: url(../images/glass.svg);
+		border: solid 1px #E64C3C; border-right:0px;
+		background: #E64C3C;
+		background-image: url(../images/glass-small.png);
 		background-repeat: no-repeat;
 		background-position: center;
-        background-size: contain;
 		border-top-right-radius: 5px 5px;
 		border-bottom-right-radius: 5px 5px;
-        box-shadow: 6px 6px 2px #100f0f;
 	}
 	.tfbutton:hover {
 
@@ -216,44 +141,6 @@ td{
 	.tfbutton::-moz-focus-inner {
 	  border: 0;
 	}
-    
 	.tfclear{
 		clear:both;
 	}
-
-    .loading-container {
-  position: relative;
-  margin: -40px auto auto auto;
-  top: 50%;
-  width: 40px;
-  height: 40px;
-}
-.loading {
-  position: relative;
-  width: 80px;
-  height: 80px;
-  background: #E1004C;
-  overflow: hidden;
-  font-size: 1px;
-  color: #353535;
-  border-top-left-radius: 5px 5px;
-  border-bottom-left-radius: 5px 5px;
-  border-top-right-radius: 5px 5px;
-  border-bottom-right-radius: 5px 5px;
-  -webkit-animation: spin-step-simple 1s linear 0s infinite;
-  animation: spin-step-simple 1s linear 0s infinite;
-}
-
-@-webkit-keyframes spin-step-simple {
-  0% {-webkit-transform: rotate(0deg);background:#00A47F;}
-  33% {-webkit-transform: rotate(90deg);background:#70E500;}
-  66% {-webkit-transform: rotate(90deg);background:#FF6200;}
-  100% {-webkit-transform: rotate(90deg);background:#E1004C;}
-}
-@keyframes spin-step-simple {
-  0% {-webkit-transform: rotate(0deg);background:#00A47F;}
-  33% {-webkit-transform: rotate(90deg);background:#70E500;}
-  66% {-webkit-transform: rotate(90deg);background:#FF6200;}
-  100% {-webkit-transform: rotate(90deg);background:#E1004C;}
-}
-
