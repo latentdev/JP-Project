@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+
 using DATA.Models;
 using DATA.Data;
 
@@ -30,7 +31,7 @@ namespace DATA
             {
                 // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
                 builder.AddApplicationInsightsSettings(developerMode: true);
-                
+
             }
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -66,7 +67,7 @@ namespace DATA
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            
+
 
             app.UseApplicationInsightsRequestTelemetry();
 

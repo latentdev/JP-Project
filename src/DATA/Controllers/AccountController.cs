@@ -93,7 +93,7 @@ namespace DATA.Controllers
                 {
                     await m_signInManager.SignInAsync(user, isPersistent: false);
                     m_logger.LogInformation(3, "User created new account");
-                    return RedirectToLocal(returnUrl); 
+                    return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
             }

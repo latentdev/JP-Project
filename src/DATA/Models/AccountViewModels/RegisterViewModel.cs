@@ -10,7 +10,7 @@ namespace DATA.Models.AccountViewModels
     {
         [Required]
         [Display(Name = "username")]
-        
+
         public string username { get; set; }
 
         [Required]
