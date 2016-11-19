@@ -7,6 +7,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+using DATA.Models;
+using DATA.Data;
+
+
 
 namespace DATA
 {
@@ -24,7 +31,9 @@ namespace DATA
             {
                 // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
                 builder.AddApplicationInsightsSettings(developerMode: true);
+
             }
+            builder.AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
@@ -36,6 +45,19 @@ namespace DATA
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            //services.AddDbContext<Applicationdb>
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+            });
+
             services.AddMvc();
         }
 
@@ -44,6 +66,8 @@ namespace DATA
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+
 
             app.UseApplicationInsightsRequestTelemetry();
 
@@ -61,12 +85,13 @@ namespace DATA
 
             app.UseStaticFiles();
 
+            app.UseIdentity();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-
             });
         }
     }
