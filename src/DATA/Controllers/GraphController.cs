@@ -28,7 +28,7 @@ namespace DATA.Controllers
             {
                 searchterm = search;
                 tweet = new SearchTweets(new Helper.oath());
-                tweets = tweet.Search(search, 1000);
+                tweets = tweet.Search(search, 100);
                 Analysis tags = new Analysis(tweets, search);
                 var temp = Json(tags.commonTags().ToJson());
                 return temp;
