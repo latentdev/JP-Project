@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Manage your account";
+}
+<style> dl { background-color: white }</style>
+<h2>@ViewData["Title"].</h2>
+<div>
+    <h3>Change your account settings</h3>
+        <hr />
+
+        <dl class="dl-horizontal">
+
+            <dd>
+                <a asp-controller="Manage" asp-action="ChangePassword" class="btn-bracketed">Change Password</a>
+            </dd>
+
+            <dd>
+                <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm">
+                    
+                            <button type="submit" class="btn btn-link navbar-btn navbar-link">Log off</button>
+                        
+                </form>
+            </dd>
+        </dl>
+
+ </div>

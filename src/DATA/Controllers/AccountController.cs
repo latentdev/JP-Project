@@ -55,7 +55,7 @@ namespace DATA.Controllers
                 if (result.Succeeded)
                 {
                     m_logger.LogInformation(1, "User Logged in.");
-                    return RedirectToLocal(returnUrl); //update where user is sent after login
+                    return RedirectToLocal(returnUrl); 
                 }
                 if (result.IsLockedOut)
                 {
@@ -103,7 +103,7 @@ namespace DATA.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logoff()
+        public async Task<IActionResult> LogOff()
         {
             await m_signInManager.SignOutAsync();
             m_logger.LogInformation(4, "User has logged out");
