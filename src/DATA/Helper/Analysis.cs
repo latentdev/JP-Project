@@ -49,7 +49,6 @@ namespace DATA.Helper
                     tags.Add('#'+tag.Text.ToLower());
                 }
             }
-
             tags.RemoveAll(x => x == search.ToLower());
             while (tags.Count()!=0)
             {
@@ -64,7 +63,7 @@ namespace DATA.Helper
                 commonTags.Add(x);
                 tags.RemoveAll(y => y == tag.ToString());
             }
-
+            commonTags.Sort((x, y) => x.data.CompareTo(y.data));
             return commonTags;
         }
     }
