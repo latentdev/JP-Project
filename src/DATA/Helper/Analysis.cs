@@ -10,11 +10,13 @@ namespace DATA.Helper
     {
         public string title { get; set; }
         public int data { get; set; }
+        public int sentiment { get; set; }
 
         public DataSet()
         {
             title = null;
             data = 0;
+            sentiment = 0;
         }
 
         public DataSet(string in_title, int in_data)
@@ -26,14 +28,14 @@ namespace DATA.Helper
 
     public class Analysis
     {
-        IEnumerable<Tweetinvi.Models.ITweet> tweets = null;
+        List<Models.Tweet> tweets = null;
         string search = null;
         public Analysis()
         {
 
         }
 
-        public Analysis(IEnumerable<Tweetinvi.Models.ITweet> in_tweets,string in_search)
+        public Analysis(List<Models.Tweet> in_tweets,string in_search)
         {
             tweets = in_tweets;
             search = in_search;
@@ -44,7 +46,7 @@ namespace DATA.Helper
             List<string> tags = new List<string>();
             foreach (var tweet in tweets)
             {
-                foreach(var tag in tweet.Hashtags)
+                foreach (var tag in tweet.tweet.Hashtags)
                 {
                     tags.Add('#'+tag.Text.ToLower());
                 }
@@ -52,11 +54,13 @@ namespace DATA.Helper
             tags.RemoveAll(x => x == search.ToLower());
             while (tags.Count()!=0)
             {
+                
                 var tag = tags[0];
                 int count = 0;
                 foreach(var T in tags)
                 {
                     if (T.ToString()==tag.ToString())
+                        
                     { count++; }
                 }
                 DataSet x = new DataSet(tag.ToString(), count);

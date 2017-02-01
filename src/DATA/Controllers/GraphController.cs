@@ -14,7 +14,7 @@ namespace DATA.Controllers
     {
 
         Tweets tweet = null;
-        IEnumerable<Tweetinvi.Models.ITweet> tweets = null;
+        List<Models.Tweet> list_of_tweets = new List<Models.Tweet>();
         string searchterm = null;
         // GET: /Graph/
         public IActionResult Index()
@@ -24,12 +24,21 @@ namespace DATA.Controllers
         // POST: /Graph/search
         public JsonResult Search(string search)
         {
+            IEnumerable<Tweetinvi.Models.ITweet> tweets = null;
             if (search != null)
             {
                 searchterm = search;
                 tweet = new SearchTweets(new Helper.oath());
                 tweets = tweet.Search(search, 100);
-                Analysis tags = new Analysis(tweets, search);
+                Sentiment sentiment = Sentiment.Instance;
+                foreach (var twit in tweets)
+                {
+                    Models.Tweet T = new Models.Tweet();
+                    T.tweet = twit;
+
+                    T.sentiment = sentiment.Analyse(twit.FullText);
+                }
+                Analysis tags = new Analysis(list_of_tweets, search);
                 var temp = Json(tags.commonTags().ToJson());
                 return temp;
             }
@@ -37,7 +46,7 @@ namespace DATA.Controllers
         }
         public ActionResult commonTags()
         {
-            Analysis tags = new Analysis(tweets, searchterm);
+            Analysis tags = new Analysis(list_of_tweets, searchterm);
             return Json(tags.commonTags().ToJson());
         }
     }
