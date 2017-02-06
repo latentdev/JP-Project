@@ -37,6 +37,7 @@ namespace DATA.Controllers
                     T.tweet = twit;
 
                     T.sentiment = sentiment.Analyse(twit.FullText);
+                    list_of_tweets.Add(T);
                 }
                 Analysis tags = new Analysis(list_of_tweets, search);
                 var temp = Json(tags.commonTags().ToJson());
