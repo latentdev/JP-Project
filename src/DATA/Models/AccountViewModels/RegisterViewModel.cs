@@ -13,10 +13,10 @@ namespace DATA.Models.AccountViewModels
 
         public string username { get; set; }
 
-        [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string email { get; set; }
+        //[Required]
+        //[Display(Name = "Email")]
+        //[EmailAddress]
+        //public string email { get; set; }
 
 
         [Required]

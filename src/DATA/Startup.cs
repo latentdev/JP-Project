@@ -53,9 +53,11 @@ namespace DATA
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireNonAlphanumeric = false;
+                options.User.RequireUniqueEmail = false;
             });
 
             services.AddMvc();
@@ -86,6 +88,8 @@ namespace DATA
             app.UseStaticFiles();
 
             app.UseIdentity();
+
+            
 
             app.UseMvc(routes =>
             {

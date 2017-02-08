@@ -11,9 +11,9 @@ namespace DATA.Models.AccountViewModels
         [Required]
         public string username { get; set; }
 
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+        //[Required]
+        //[EmailAddress]
+        //public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

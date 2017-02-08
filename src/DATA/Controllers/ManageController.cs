@@ -58,6 +58,7 @@ namespace DATA.Controllers
             if (user != null)
             {
                 var result = await m_userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                
                 if (result.Succeeded)
                 {
                     await m_signInManager.SignInAsync(user, isPersistent: false);
@@ -69,6 +70,11 @@ namespace DATA.Controllers
             }
             return RedirectToAction(nameof(Index), new { Message = "Error" });
         }
+
+
+
+        
+
 
 
         private Task<ApplicationUser> GetCurrentUserAsync()

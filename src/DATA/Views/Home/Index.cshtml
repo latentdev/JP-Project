@@ -79,8 +79,13 @@
 
     function handleResults(data) {
         $("#tweettext").text(data);
+        //var svg = d3.select("#tweettext").append("svg").attr("width", 100).attr("height", 150);
+        //svg.selectAll("rect").data(tweetdata).enter().append("rect");
+        
+        //$("tweettext").text(svg.data);
+
         $('.loading-container').hide();
-        piechart(d3,data);
+        //piechart(d3,data);
     };
     function slideUp() {
         var h = $(window).height() * .1;
