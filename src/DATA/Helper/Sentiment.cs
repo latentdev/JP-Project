@@ -9,21 +9,9 @@ namespace DATA.Helper
 {
     public class Sentiment
     {
-        private static Sentiment instance;
         private Sentiment() { }
 
-        public static Sentiment Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new Sentiment();
-                }
-                return instance;
-            }
-        }
-        public int Analyse(String tweet)
+        public static int Analyse(String tweet)
         {
             int sentimentScore = 0;
             String t=Regex.Replace(tweet, @"[^\w\s]", "");
@@ -45,7 +33,7 @@ namespace DATA.Helper
             return sentimentScore;
         }
 
-        public List<String> ReadFile(String file)
+        public static List<String> ReadFile(String file)
         {
             var dict = File.ReadAllLines(file);
             List<String> dictionary = new List<String>(dict);

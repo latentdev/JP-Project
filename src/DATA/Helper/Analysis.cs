@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
+using DATA.Models;
 
 namespace DATA.Helper
 {
@@ -28,23 +29,12 @@ namespace DATA.Helper
 
     public class Analysis
     {
-        List<Models.Tweet> tweets = null;
-        string search = null;
-        public Analysis()
-        {
 
-        }
-
-        public Analysis(List<Models.Tweet> in_tweets,string in_search)
-        {
-            tweets = in_tweets;
-            search = in_search;
-        }
-        public List<DataSet> commonTags()
+        public static List<DataSet> commonTags(Tweets tweets,string search)
         {
             List<DataSet> commonTags = new List<DataSet>();
             List<string> tags = new List<string>();
-            foreach (var tweet in tweets)
+            foreach (var tweet in tweets.tweets)
             {
                 foreach (var tag in tweet.tweet.Hashtags)
                 {
