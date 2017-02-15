@@ -6,20 +6,15 @@ using Tweetinvi;
 
 namespace DATA.Helper
 {
-    interface Tweets
+    interface Search
     {
-        IEnumerable<Tweetinvi.Models.ITweet> Search(string search, int count);
+        IEnumerable<Tweetinvi.Models.ITweet> Search(string search, oath creds, int count);
     }
-    public class SearchTweets : Tweets
+    public class SearchTweets 
     {
-        oath creds;
-        public SearchTweets(oath in_credentials)
-        {
-            creds = in_credentials;
-        }
 
         //sql components commented out while not in use.
-        public IEnumerable<Tweetinvi.Models.ITweet> Search(string search, int count = 1000)
+        public static IEnumerable<Tweetinvi.Models.ITweet> Search(string search, oath creds, int count = 1000)
         {
             //SQL sql = new SQL();
             
@@ -37,7 +32,7 @@ namespace DATA.Helper
         }
     }
     // do not use this function yet. It does nothing at the moment.
-    public class StreamTweets:Tweets
+    public class StreamTweets:Search
     {
         oath creds;
         public StreamTweets(oath in_credentials)
@@ -45,7 +40,7 @@ namespace DATA.Helper
             creds = in_credentials;
         }
 
-        public IEnumerable<Tweetinvi.Models.ITweet> Search(string search, int count=0)
+        public IEnumerable<Tweetinvi.Models.ITweet> Search(string search, oath creds, int count=0)
         {
             IEnumerable < Tweetinvi.Models.ITweet > tweet = null;
             return tweet;
