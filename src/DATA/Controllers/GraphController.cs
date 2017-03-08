@@ -28,7 +28,7 @@ namespace DATA.Controllers
             IEnumerable<Tweetinvi.Models.ITweet> tweets = null;
             if (search != null)
             {
-                tweets = SearchTweets.Search(search, new Helper.oath(), 300);
+                tweets = SearchTweets.Search(search, new Helper.oath(), 2000);
                 foreach (var twit in tweets)
                 {
                     Models.Tweet T = new Models.Tweet();
