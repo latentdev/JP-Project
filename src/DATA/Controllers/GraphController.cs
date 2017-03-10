@@ -7,7 +7,7 @@ using DATA.Helper;
 using Tweetinvi;
 using DATA.Models;
 
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+//cant get tweets from model
 
 namespace DATA.Controllers
 {
@@ -28,7 +28,7 @@ namespace DATA.Controllers
             IEnumerable<Tweetinvi.Models.ITweet> tweets = null;
             if (search != null)
             {
-                tweets = SearchTweets.Search(search, new Helper.oath(), 100);
+                tweets = SearchTweets.Search(search, new Helper.oath(), 300);
                 foreach (var twit in tweets)
                 {
                     Models.Tweet T = new Models.Tweet();
@@ -48,6 +48,38 @@ namespace DATA.Controllers
         public ActionResult commonTags()
         {
             return Json(Analysis.commonTags(Tweets.getInstance(),Tweets.getInstance().searchTerm).ToJson());
+        }
+
+        public ActionResult pinmap()
+        {
+            return View("~/Views/Home/pinmap.cshtml");
+        }
+
+        public JsonResult pinmapjson()
+        {
+            List<Tuple<double, double>> geocoords = new List<Tuple<double, double>>();
+            Tweets instance = Tweets.getInstance();
+            var avglong = 0.0;
+            var avglat = 0.0;
+            foreach (var t in instance.tweets)
+            {
+                if (t.tweet.Coordinates != null || t.tweet.Place != null)
+                {
+                    if (t.tweet.Coordinates != null)
+                    {
+                        geocoords.Add(new Tuple<double, double>(t.tweet.Coordinates.Longitude, t.tweet.Coordinates.Latitude));
+                    }
+                    else
+                    {
+                        //find center of tweet location bounding box to place pin
+                        avglong = (t.tweet.Place.BoundingBox.Coordinates[0].Longitude + t.tweet.Place.BoundingBox.Coordinates[1].Longitude) / 2;
+                        avglat = (t.tweet.Place.BoundingBox.Coordinates[0].Latitude + t.tweet.Place.BoundingBox.Coordinates[2].Latitude) / 2;
+                        geocoords.Add(new Tuple<double, double>(avglong, avglat));
+                    }
+                }
+            }
+
+            return Json(geocoords);
         }
     }
 }

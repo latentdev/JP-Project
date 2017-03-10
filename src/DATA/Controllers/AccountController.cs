@@ -87,7 +87,7 @@ namespace DATA.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.username, Email = model.email };
+                var user = new ApplicationUser { UserName = model.username};
                 var result = await m_userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
