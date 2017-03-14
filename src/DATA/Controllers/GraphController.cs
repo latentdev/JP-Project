@@ -28,7 +28,7 @@ namespace DATA.Controllers
             IEnumerable<Tweetinvi.Models.ITweet> tweets = null;
             if (search != null)
             {
-                tweets = SearchTweets.Search(search, new Helper.oath(), 300);
+                tweets = SearchTweets.Search(search, new Helper.oath(), 3000);
                 foreach (var twit in tweets)
                 {
                     Models.Tweet T = new Models.Tweet();
@@ -40,6 +40,7 @@ namespace DATA.Controllers
                 Tweets instance = Tweets.getInstance();
                 instance.tweets = list_of_tweets;
                 instance.searchTerm = search;
+                //Analysis.hashtag(instance, instance.searchTerm);
                 var temp = Json(Analysis.commonTags(instance,search).ToJson());
                 return temp;
             }
@@ -54,7 +55,15 @@ namespace DATA.Controllers
         {
             return View("~/Views/Home/pinmap.cshtml");
         }
-
+        public ActionResult time()
+        {
+            return View("~/Views/Home/time.cshtml");
+        }
+        public JsonResult timejson()
+            {
+            return Json(Analysis.hashtag(Tweets.getInstance(), Tweets.getInstance().searchTerm));
+            }
+        
         public JsonResult pinmapjson()
         {
             List<Tuple<double, double>> geocoords = new List<Tuple<double, double>>();

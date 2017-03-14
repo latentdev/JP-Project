@@ -60,7 +60,39 @@ namespace DATA.Helper
             commonTags.Sort((x, y) => x.data.CompareTo(y.data));
             return commonTags;
         }
+
+        //
+        //Analyzing hashtag used over period of time
+        //
+
+        public static Day[] hashtag(Tweets tweets, string search)
+        {
+            DateTime startDate = tweets.tweets[0].tweet.CreatedAt;
+
+            foreach(var tweet in tweets.tweets)
+            {
+                // Finding earliest time tweet
+                if(startDate > tweet.tweet.CreatedAt)
+                {
+                    startDate = tweet.tweet.CreatedAt;
+                }
+            }
+             // This would give back how many days between the startdate and currentdate
+            int span = (DateTime.Now - startDate).Days;
+
+            Day[] count = new Day[span+1]; //Arr based on number of Days
+
+            foreach(var tweet in tweets.tweets)
+            {
+                if (count[(tweet.tweet.CreatedAt - startDate).Days] == null) 
+                {
+                    count[(tweet.tweet.CreatedAt - startDate).Days] = new Day();
+                }
+                count[(tweet.tweet.CreatedAt - startDate).Days].date = tweet.tweet.CreatedAt;
+                count[(tweet.tweet.CreatedAt - startDate).Days].count++;
+            }
+
+            return count;
+        }
     }
-
-
 }
