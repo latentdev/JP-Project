@@ -25,26 +25,32 @@ namespace DATA.Controllers
         // POST: /Graph/search
         public JsonResult Search(string search)
         {
-            IEnumerable<Tweetinvi.Models.ITweet> tweets = null;
-            if (search != null)
+            try
             {
-                tweets = SearchTweets.Search(search, new Helper.oath(), 300);
-                foreach (var twit in tweets)
+                IEnumerable<Tweetinvi.Models.ITweet> tweets = null;
+                if (search != null)
                 {
-                    Models.Tweet T = new Models.Tweet();
-                    T.tweet = twit;
+                    tweets = SearchTweets.Search(search, 5000);
+                    foreach (var twit in tweets)
+                    {
+                        Models.Tweet T = new Models.Tweet();
+                        T.tweet = twit;
 
-                    T.sentiment = Sentiment.Analyse(twit.FullText);
-                    list_of_tweets.Add(T);
+                        T.sentiment = Sentiment.Analyse(twit.FullText);
+                        list_of_tweets.Add(T);
+                    }
+                    Tweets instance = Tweets.getInstance();
+                    instance.tweets = list_of_tweets;
+                    instance.searchTerm = search;
+                    var temp = Json(Analysis.commonTags(instance, search));
+                    return temp;
                 }
-                Tweets instance = Tweets.getInstance();
-                instance.tweets = list_of_tweets;
-                instance.searchTerm = search;
-                var temp = Json(Analysis.commonTags(instance,search).ToJson());
-                return temp;
+                else return Json("search is null"); ;
+            } catch( Exception e)
+            {
+                return Json(e);
             }
-            else return null;
-        }
+            }
         public ActionResult commonTags()
         {
             return Json(Analysis.commonTags(Tweets.getInstance(),Tweets.getInstance().searchTerm).ToJson());

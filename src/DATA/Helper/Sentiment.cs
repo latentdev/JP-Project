@@ -16,8 +16,8 @@ namespace DATA.Helper
             int sentimentScore = 0;
             String t=Regex.Replace(tweet, @"[^\w\s]", "");
             var final = t.Split();
-            List<String> positive = ReadFile("Data/Positive.txt");
-            List<String> negative = ReadFile("Data/Negative.txt");
+            List<String> positive = ReadFile(System.IO.Directory.GetCurrentDirectory()+@"\wwwroot\Data\Positive.txt");
+            List<String> negative = ReadFile(System.IO.Directory.GetCurrentDirectory()+@"\wwwroot\Data\Negative.txt");
             foreach (var character in final)
             {
                 if (positive.Exists(x => x.ToString() == character))
