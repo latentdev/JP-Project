@@ -27,15 +27,10 @@ namespace DATA.Controllers
         {
             try
             {
-<<<<<<< HEAD
                 IEnumerable<Tweetinvi.Models.ITweet> tweets = null;
                 if (search != null)
-=======
-                tweets = SearchTweets.Search(search, new Helper.oath(), 3000);
-                foreach (var twit in tweets)
->>>>>>> refs/remotes/origin/master
                 {
-                    tweets = SearchTweets.Search(search, 5000);
+                    tweets = SearchTweets.Search(search, 1000);
                     foreach (var twit in tweets)
                     {
                         Models.Tweet T = new Models.Tweet();
@@ -50,21 +45,13 @@ namespace DATA.Controllers
                     var temp = Json(Analysis.commonTags(instance, search));
                     return temp;
                 }
-<<<<<<< HEAD
                 else return Json("search is null"); ;
-            } catch( Exception e)
+            }
+            catch (Exception e)
             {
                 return Json(e);
             }
-=======
-                Tweets instance = Tweets.getInstance();
-                instance.tweets = list_of_tweets;
-                instance.searchTerm = search;
-                //Analysis.hashtag(instance, instance.searchTerm);
-                var temp = Json(Analysis.commonTags(instance,search).ToJson());
-                return temp;
->>>>>>> refs/remotes/origin/master
-            }
+        }
         public ActionResult commonTags()
         {
             return Json(Analysis.commonTags(Tweets.getInstance(),Tweets.getInstance().searchTerm).ToJson());
