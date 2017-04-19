@@ -25,26 +25,32 @@ namespace DATA.Controllers
         // POST: /Graph/search
         public JsonResult Search(string search)
         {
-            IEnumerable<Tweetinvi.Models.ITweet> tweets = null;
-            if (search != null)
+            try
             {
-                tweets = SearchTweets.Search(search, new Helper.oath(), 3000);
-                foreach (var twit in tweets)
+                IEnumerable<Tweetinvi.Models.ITweet> tweets = null;
+                if (search != null)
                 {
-                    Models.Tweet T = new Models.Tweet();
-                    T.tweet = twit;
+                    tweets = SearchTweets.Search(search, 1000);
+                    foreach (var twit in tweets)
+                    {
+                        Models.Tweet T = new Models.Tweet();
+                        T.tweet = twit;
 
-                    T.sentiment = Sentiment.Analyse(twit.FullText);
-                    list_of_tweets.Add(T);
+                        T.sentiment = Sentiment.Analyse(twit.FullText);
+                        list_of_tweets.Add(T);
+                    }
+                    Tweets instance = Tweets.getInstance();
+                    instance.tweets = list_of_tweets;
+                    instance.searchTerm = search;
+                    var temp = Json(Analysis.commonTags(instance, search));
+                    return temp;
                 }
-                Tweets instance = Tweets.getInstance();
-                instance.tweets = list_of_tweets;
-                instance.searchTerm = search;
-                //Analysis.hashtag(instance, instance.searchTerm);
-                var temp = Json(Analysis.commonTags(instance,search).ToJson());
-                return temp;
+                else return Json("search is null"); ;
             }
-            else return null;
+            catch (Exception e)
+            {
+                return Json(e);
+            }
         }
         public ActionResult commonTags()
         {

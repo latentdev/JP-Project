@@ -14,11 +14,11 @@ namespace DATA.Helper
     {
 
         //sql components commented out while not in use.
-        public static IEnumerable<Tweetinvi.Models.ITweet> Search(string search, oath creds, int count = 1000)
+        public static IEnumerable<Tweetinvi.Models.ITweet> Search(string search,int count = 1000)
         {
             //SQL sql = new SQL();
-            
-            Auth.SetUserCredentials(creds.get_consumer_key(), creds.get_consumer_secret(), creds.get_access_token(), creds.get_access_secret());
+            oath cred = oath.getInstance();
+            Auth.SetUserCredentials(cred.get_consumer_key(), cred.get_consumer_secret(), cred.get_access_token(), cred.get_access_secret());
             var searchParameter = new Tweetinvi.Parameters.SearchTweetsParameters(search)
             {
                 Lang = Tweetinvi.Models.LanguageFilter.English,

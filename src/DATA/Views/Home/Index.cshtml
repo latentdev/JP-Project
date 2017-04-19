@@ -41,15 +41,14 @@
     $ = jQuery;
 
     function piechart(d3, dataset) {
-        d3.json(dataset, function(error, json){
-            if (error) return console.warn(error);
-
-            'use strict';
-            var width = 360;
-            var height = 360;
+        var donutWidth = 100;
+        var size = Math.min($("#graph").height(), $("#graph").width())-100;
+            var width = size;
+            var height = size;
             var radius = Math.min(width, height) / 2;
 
-            var color = d3.scaleOrdinal(d3.schemeCategory20b);
+            var color = d3.scaleOrdinal()
+                .range(['#E1004C', '#00A47F', '#FF6200', '#70E500', '#00644E']);
 
             var svg = d3.select('#chart')
               .append('svg')
@@ -60,26 +59,55 @@
                 ',' + (height / 2) + ')');
 
             var arc = d3.arc()
-              .innerRadius(0)
+              .innerRadius(radius-donutWidth)
               .outerRadius(radius);
 
             var pie = d3.pie()
-              .value(function(d) { return d.count; })
+              .value(function(d) { return d.data; })
               .sort(null);
 
             var path = svg.selectAll('path')
-              .data(pie(json))
+              .data(pie(dataset))
               .enter()
               .append('path')
               .attr('d', arc)
               .attr('fill', function(d) {
-                  return color(d.data.label);
+                  return color(d.data.title);
               });
-        } )}(window.d3);
+
+            var legendRectSize = 18;
+            var legendSpacing = 4;
+            
+            var legend = svg.selectAll('.tweettext')
+                  .data(color.domain())
+                  .enter()
+                  .append('g')
+                  .attr('transform', function (d, i) {
+                      var height = legendRectSize + legendSpacing;
+                      var offset = height * color.domain().length / 2;
+                      var horz = -2 * legendRectSize;
+                      var vert = i * height - offset;
+                      return 'translate(' + horz + ',' + vert + ')';
+                  });
+
+            legend.append('rect')
+                  .attr('width', legendRectSize)
+                  .attr('height', legendRectSize)
+                  .style('fill', color)
+                  .style('stroke', color);
+
+            legend.append('text')
+                  .attr('id','tweettext')
+                  .attr('x', legendRectSize + legendSpacing)
+                  .attr('y', legendRectSize - legendSpacing)
+                  .text(function (d) { return d; });
+
+    } (window.d3);
 
     function handleResults(data) {
-        $("#tweettext").text(data);
+        //$("#tweettext").text(JSON.stringify(data));
         $('.loading-container').hide();
+        $('#chart').empty();
         piechart(d3,data);
     };
     function slideUp() {
@@ -113,5 +141,10 @@
                 success: handleResults
             });
         }
-        });
+    });
+    $('#search').keypress(function(e){
+        if(e.which == 13){
+            $('#submit').click();
+        }
+    });
 </script>

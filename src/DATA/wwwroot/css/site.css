@@ -154,9 +154,9 @@ td{
         height:85%;
         margin-right:0px;
         margin-left:0px;
-        overflow:auto;
-         width:98%;
-         position:relative;
+        /*overflow:auto;*/
+        width:98%;
+        position:relative;
     }
     #graph::-webkit-scrollbar{
         
@@ -173,6 +173,12 @@ td{
     #graph::-webkit-scrollbar-corner{
         background-color:#353535;
     }
+     rect {
+    stroke-width: 2;
+    }
+     .tweettext{
+        color:#9D9D9D;
+     }
 	.tftextinput{
 		margin: 0;
 		width: 90%;

@@ -20,45 +20,60 @@ namespace DATA.Helper
             sentiment = 0;
         }
 
-        public DataSet(string in_title, int in_data)
+        public DataSet(string in_title, int in_data, int in_sentiment)
         {
             title = in_title;
             data = in_data;
+            sentiment = in_sentiment;
         }
     }
+
 
     public class Analysis
     {
 
-        public static List<DataSet> commonTags(Tweets tweets,string search)
+        public static List<DataSet> commonTags(Tweets tweets,string search, int top=5)
         {
             List<DataSet> commonTags = new List<DataSet>();
-            List<string> tags = new List<string>();
+            List<TagSet> tags = new List<TagSet>();
             foreach (var tweet in tweets.tweets)
             {
                 foreach (var tag in tweet.tweet.Hashtags)
                 {
-                    tags.Add('#'+tag.Text.ToLower());
+                    tags.Add(new Models.TagSet(tweet.sentiment, '#'+tag.Text.ToLower() ));
                 }
             }
-            tags.RemoveAll(x => x == search.ToLower());
+            tags.RemoveAll(x => x.tag == search.ToLower());
             while (tags.Count()!=0)
             {
                 
                 var tag = tags[0];
                 int count = 0;
+                int sentiment = 0;
                 foreach(var T in tags)
                 {
-                    if (T.ToString()==tag.ToString())
+                    if (T.tag.ToString()==tag.tag.ToString())
                         
-                    { count++; }
+                    {
+                        count++;
+                        //average the sentiment score
+                        sentiment = (sentiment + T.sentiment) / count;
+                    }
                 }
-                DataSet x = new DataSet(tag.ToString(), count);
+                DataSet x = new DataSet(tag.tag.ToString(), count, sentiment);
                 commonTags.Add(x);
-                tags.RemoveAll(y => y == tag.ToString());
+                tags.RemoveAll(y => y.tag == tag.tag.ToString());
             }
             commonTags.Sort((x, y) => x.data.CompareTo(y.data));
-            return commonTags;
+            int index = commonTags.Count();
+            List<DataSet> TopTags = new List<DataSet>();
+            for (int x=0; x<top; x++)
+            {
+                TopTags.Add(commonTags[index-1]);
+                index--;
+            }
+            TopTags.Sort((x, y) => x.data.CompareTo(y.data));
+            return TopTags;
         }
 
         //
