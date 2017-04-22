@@ -1,37 +1,27 @@
 ﻿@{
     ViewData["Title"] = "#DATA";
 }
-<div id="middle">
-    <div id="backimage">
+<div class="col-md-12" id="middle">
+    <div class="col-md-4"  id="backimage">
         <p id="title">#DATA</p>
     </div>
-    <div id="tfheader">
-
+    <div class="col-md-12" id="tfheader">
         <input id="search" type="text" class="tftextinput" placeholder="Enter Query Here" name="q" size="21" maxlength="120"><input id="submit" type="submit" class="tfbutton" value=" ">
-
     </div>
-    <div id="options">
-
-    </div>
-    <div id="tweets">
-        <div id="icons">
-            <div id="page"><img id="svg-graph" src="~/images/PIE.svg" alt="Pie" /></div>
-            <div id="page"><img id="svg-graph" src="~/images/BAR.svg" alt="Bar" /></div>
-            <div id="page"><img id="svg-graph" src="~/images/LINE.svg" alt="Line" /></div>
-            <div id="page"><img id="svg-graph" src="~/images/VENN.svg" alt="Venn" /></div>
-        </div>
-        <div id="data">
-            <div id="graph">
+    <div class="col-md-12" id="tweets">
+        <div class="col-md-12" id="graph">
                 <div class="loading-container">
                     <div class="loading">Loading...</div>
                 </div>
-            <!--<iframe frameBorder="0"></iframe>-->
-                <p id="tweettext"></p>
-                <div id="chart"></div>
-            </div>
+                <div id="chart" class="col-md-6 img-responsive" style="margin-top:20px"></div>
+                <div id="paragraph" class="col-md-6">
+                    <h1 id="tweettext">Commonly Associated Hashtags</h1>
+                    <p id="tweettext">This graph shows the top 5 hashtags that are used in conjunction with the search term.</p>
+                </div>
+            <hr>
         </div>
     </div>
-    <div id="footerSpace"style="margin-top:36vh"></div>
+    <div class="col-md-12" id="footerSpace"style="margin-top:36vh"></div>
 </div>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
@@ -40,12 +30,12 @@
 <script type="text/javascript">
     $ = jQuery;
 
-    function piechart(d3, dataset) {
-        var donutWidth = 100;
-        var size = Math.min($("#graph").height(), $("#graph").width())-100;
+    function piechart(d3, dataset,size) {
+        var donutWidth = size/6;
+        
             var width = size;
             var height = size;
-            var radius = Math.min(width, height) / 2;
+            var radius = size / 2;
 
             var color = d3.scaleOrdinal()
                 .range(['#E1004C', '#00A47F', '#FF6200', '#70E500', '#00644E']);
@@ -75,8 +65,8 @@
                   return color(d.data.title);
               });
 
-            var legendRectSize = 18;
-            var legendSpacing = 4;
+            var legendRectSize = size/16;
+            var legendSpacing = size/24;
             
             var legend = svg.selectAll('.tweettext')
                   .data(color.domain())
@@ -108,7 +98,7 @@
         //$("#tweettext").text(JSON.stringify(data));
         $('.loading-container').hide();
         $('#chart').empty();
-        piechart(d3,data);
+        piechart(d3,data,Math.min($("#graph").height(), $("#graph").width())-100);
     };
     function slideUp() {
         var h = $(window).height() * .1;
@@ -116,12 +106,12 @@
         $("#title").animate({ 'font-size': '5vmax' }, 500);
         $("#tfheader").animate({ 'margin-top': '0vh' });
         $("#middle").animate({ 'margin-top': '0vh' }, 700, 'swing', function () {
-            $('#options').slideDown({
-                complete:
-                    function () {
+            //$('#options').slideDown({
+               // complete:
+                    //function () {
                         $('#tweets').show({ complete: function () { $("#footerSpace").animate({ 'margin-top': '0vh' }, 'fast'); } })
-                    }
-            })
+                    //}
+            //})
         });
             
     };

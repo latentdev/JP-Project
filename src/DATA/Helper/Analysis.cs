@@ -103,7 +103,7 @@ namespace DATA.Helper
                 {
                     count[(tweet.tweet.CreatedAt - startDate).Days] = new Day();
                 }
-                count[(tweet.tweet.CreatedAt - startDate).Days].date = tweet.tweet.CreatedAt;
+                count[(tweet.tweet.CreatedAt - startDate).Days].date = tweet.tweet.CreatedAt.Date.ToString("g");
                 count[(tweet.tweet.CreatedAt - startDate).Days].count++;
             }
 

@@ -117,10 +117,7 @@ td{
     }
     #tweets{
         display:none;
-        margin-right:inherit; 
-		margin-left:inherit; 
         font-size:1vmax;
-        width:inherit;
         height:80vh;
     }
     #icons{
@@ -130,8 +127,8 @@ td{
         height:inherit;
     }
     #data{
-        float:right;
-        width:90%;
+        /*float:right;*/
+        width:100%;
         height:inherit;
         background-color:inherit;
     }
@@ -147,7 +144,8 @@ td{
         color:#9D9D9D;
     }
     #graph{
-        float:right;
+        display:none;
+        /*float:right;*/
         margin:20px;
         background-color:#353535;
         box-shadow: 7px 7px 2px #100f0f;
@@ -155,7 +153,7 @@ td{
         margin-right:0px;
         margin-left:0px;
         /*overflow:auto;*/
-        width:98%;
+        /*width:98%;*/
         position:relative;
     }
     #graph::-webkit-scrollbar{
@@ -227,7 +225,7 @@ td{
 		clear:both;
 	}
 
-    .loading-container {
+    #loading-container {
   position: relative;
   margin: -40px auto auto auto;
   top: 50%;
