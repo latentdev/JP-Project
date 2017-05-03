@@ -12,7 +12,7 @@ namespace DATA.Models
         public Day ()
         {
             count = 0;
-            date = DateTime.MinValue.ToString("g");
+            date = DateTime.MinValue.ToString();
         }
 
         public int getCount()
