@@ -7,7 +7,7 @@
         $ = jQuery;
         function handleResults(data) {
             $('#tweettext').text(JSON.stringify(data) + ' ' + d3.max(data, function (d) { return d.count;})+"y= ");
-            graph(d3, JSON.stringify(data));
+            graph(d3, data);
 
         }
 
@@ -40,15 +40,15 @@
                 // assign the X function to plot our line as we wish
                 .x(function (d, i) {
                     // verbose logging to show what's actually being done
-                    console.log('Plotting X value for data point: ' + d.date + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
+                    console.log('Plotting X value for data point: ' + d.date + ' using index: ' + i + ' to be at: ' + x(d.date) + ' using our xScale.');
                     // return the X coordinate where we want to plot this datapoint
                     return x(i);
-                })
+                }
                 .y(function (d) {
                     // verbose logging to show what's actually being done
                     console.log('Plotting Y value for data point: ' + d.count + ' to be at: ' + y(d.count) + " using our yScale.");
                     // return the Y coordinate where we want to plot this datapoint
-                    return y(d.count);
+                    return d.count;
                 })
 
             // Add an SVG element with the desired dimensions and margin.
@@ -58,22 +58,26 @@
                 .append("svg:g")
                   .attr("transform", "translate(" + 0 + "," + 0 + ")");
 
+            var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(data.count);
+
+
+
             // create yAxis
-            var xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true);
+            //var xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true);
             // Add the x-axis.
             graph.append("svg:g")
                   .attr("class", "x axis")
                   .attr("transform", "translate(0," + h + ")")
                   .call(xAxis);
-
+            var yAxis = d3.svg.axis().scale(y).orient("left").ticks(100);
 
             // create left yAxis
-            var yAxisLeft = d3.svg.axis().scale(y).ticks(4).orient("left");
+            //var yAxisLeft = d3.svg.axis().scale(y).ticks(data.count).orient("left");
             // Add the y-axis to the left
             graph.append("svg:g")
                   .attr("class", "y axis")
                   .attr("transform", "translate(-25,0)")
-                  .call(yAxisLeft);
+                  .call(yAxis);
 
             // Add the line by appending an svg:path element with the data line we created above
             // do this AFTER the axes above so that the line is above the tick-lines
