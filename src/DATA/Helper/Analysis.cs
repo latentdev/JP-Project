@@ -4,6 +4,7 @@ using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using DATA.Models;
+using System.Globalization;
 
 namespace DATA.Helper
 {
@@ -83,31 +84,56 @@ namespace DATA.Helper
         public static Day[] hashtag(Tweets tweets, string search)
         {
             DateTime startDate = tweets.tweets[0].tweet.CreatedAt;
-
-            foreach(var tweet in tweets.tweets)
+            DateTime endDate = startDate;
+            foreach (var tweet in tweets.tweets)
             {
-                // Finding earliest time tweet
+                // Finding earliest time tweet and latest.
                 if(startDate > tweet.tweet.CreatedAt)
                 {
                     startDate = tweet.tweet.CreatedAt;
                 }
-            }
-             // This would give back how many days between the startdate and currentdate
-            int span = (DateTime.Now - startDate).Days;
-
-            Day[] count = new Day[span+1]; //Arr based on number of Days
-
-            foreach(var tweet in tweets.tweets)
-            {
-                if (count[(tweet.tweet.CreatedAt - startDate).Days] == null) 
+                if (endDate < tweet.tweet.CreatedAt)
                 {
-                    count[(tweet.tweet.CreatedAt - startDate).Days] = new Day();
+                    endDate = tweet.tweet.CreatedAt;
                 }
-                count[(tweet.tweet.CreatedAt - startDate).Days].date = tweet.tweet.CreatedAt.Date.ToString("g");
-                count[(tweet.tweet.CreatedAt - startDate).Days].count++;
+            }
+            if ((endDate - startDate).Days <= 3)
+            {
+                // This would give back how many days between the startdate and currentdate
+                int span = (DateTime.Now - startDate).Hours;
+
+                Day[] count = new Day[span+1]; //Arr based on number of hours
+
+                foreach (var tweet in tweets.tweets)
+                {
+                    if (count[(tweet.tweet.CreatedAt - startDate).Hours] == null)
+                    {
+                        count[(tweet.tweet.CreatedAt - startDate).Hours] = new Day();
+                    }
+                    count[(tweet.tweet.CreatedAt - startDate).Hours].date = tweet.tweet.CreatedAt.ToString("g", DateTimeFormatInfo.InvariantInfo);//"d");
+                    count[(tweet.tweet.CreatedAt - startDate).Hours].count++;
+                }
+                return count;
+            }
+            else
+            {
+                int span = (DateTime.Now - startDate).Days;
+
+                Day[] count = new Day[span + 1]; //Arr based on number of Days
+
+                foreach (var tweet in tweets.tweets)
+                {
+                    if (count[(tweet.tweet.CreatedAt - startDate).Days] == null)
+                    {
+                        count[(tweet.tweet.CreatedAt - startDate).Days] = new Day();
+                    }
+                    count[(tweet.tweet.CreatedAt - startDate).Days].date = tweet.tweet.CreatedAt.ToString("g", DateTimeFormatInfo.InvariantInfo);//"d");
+                    count[(tweet.tweet.CreatedAt - startDate).Days].count++;
+                }
+                return count;
             }
 
-            return count;
+            
         }
     }
 }
