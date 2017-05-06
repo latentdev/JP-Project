@@ -1,5 +1,6 @@
 ﻿// Write your Javascript code.
 
+
 function piechart(d3, dataset, size, tag) {
     var donutWidth = size / 6;
 
@@ -7,8 +8,7 @@ function piechart(d3, dataset, size, tag) {
     var height = size;
     var radius = size / 2;
 
-    var color = d3.scaleOrdinal()
-        .range(['#E1004C', '#00A47F', '#FF6200', '#70E500', '#00644E']);
+    var color = d3.scaleOrdinal().range(['#E1004C', '#00A47F', '#FF6200', '#70E500', '#00644E']);
 
     var svg = d3.select(tag)
       .append('svg')
@@ -33,7 +33,8 @@ function piechart(d3, dataset, size, tag) {
       .attr('d', arc)
       .attr('fill', function (d) {
           return color(d.data.title);
-      });
+      }).append("svg:title")
+        .text(function (d) { return d.data.data; });;
 
     var legendRectSize = size / 16;
     var legendSpacing = size / 24;
@@ -57,10 +58,16 @@ function piechart(d3, dataset, size, tag) {
           .style('stroke', color);
 
     legend.append('text')
-          .attr('id', 'tweettext')
+          .attr('fill', '#9d9d9d')
           .attr('x', legendRectSize + legendSpacing)
-          .attr('y', legendRectSize - legendSpacing)
-          .text(function (d) { return d; });
+          .attr('y', legendRectSize - legendSpacing+10)
+          .text(function (d) { return d; })
+          .styles({
+              "fill": "#9d9d9d",
+              //"fill": "white",
+              "font-family": "Coda', cursive",
+              "font-size": "12px"
+          });
 
 } (window.d3);
 
@@ -105,14 +112,16 @@ function timegraph(d3, data, tag) {
     g.append("g").styles({ stroke: "#9d9d9d" })
         .call(d3.axisLeft(y)).select(".domain").styles({ stroke: "#9d9d9d" })
         .append("text")
-        .attr("fill", "#9d9d9d")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", "0.71em")
-        .attr("stroke", "#9d9d9d")
-        .attr("text-anchor", "end")
-        .style("font-size", "1vh")
-        .text("# of times Hashtag was used");
+        .text("# of times Hashtag was used")
+        .styles({
+            "font-size": "1vh",
+            "stroke": "#9d9d9d",
+            "text-anchor": "end",
+            "dy": "0.71em",
+            "y": 6,
+            "transform": "rotate(-90)",
+            "fill": "#9d9d9d"
+        });
 
     g.append("path")
         .datum(data)
@@ -134,8 +143,7 @@ function pinmap(result, tag) {
 
     var width = $(tag).width(),//960,
      height = $(tag).width() / 1.65;//580;
-    var color = d3.scaleOrdinal()
-.range(['#E1004C', '#00A47F', '#FF6200', '#70E500', '#00644E']);
+    var color = d3.scaleOrdinal().range(['#E1004C', '#00A47F', '#FF6200', '#70E500', '#00644E']);
     var projection = d3.geo.kavrayskiy7()
         .scale(170)
         .translate([width / 2, height / 2])
@@ -196,6 +204,65 @@ function pinmap(result, tag) {
             });
     });
     d3.select(self.frameElement).style("height", height + "px");
+
+
+}
+
+function bubblechart(data, tag) {
+           
+    var diameter = 650,//550, //max size of the bubbles
+        color = d3.scaleOrdinal().range(['#E1004C', '#00A47F', '#FF6200', '#70E500', '#00644E']);
+
+
+
+    var bubble = d3.layout.pack()
+        .sort(null)
+        .size([diameter, diameter])
+        .padding(1.5);
+
+
+
+    var svg = d3.select(tag)
+        .append("svg")
+            .attr("width", diameter)
+            .attr("height", diameter)
+            .attr("class", "bubble");
+
+
+    data = data.map(function (d) { d.value = +d["count"]; return d; });
+
+    //bubbles needs very specific format, convert data to this.
+    var nodes = bubble.nodes({ children: data }).filter(function (d) { return !d.children; });
+
+
+    //setup the chart
+    var bubbles = svg.append("g")
+        .attr("transform", "translate(0,0)")
+        .selectAll(".bubble")
+        .data(nodes)
+        .enter();
+
+
+    //create the bubbles
+    bubbles.append("circle")
+        .attr("r", function (d) { return d.r; })
+        .attr("cx", function (d) { return d.x; })
+        .attr("cy", function (d) { return d.y; })
+        .style("fill", function (d) { return color(d.value); })
+        .append("svg:title")
+        .text(function (d) { return d["count"]; });
+
+    //format the text for each bubble
+    bubbles.append("text")
+        .attr("x", function (d) { return d.x; })
+        .attr("y", function (d) { return d.y + 5; })
+        .attr("text-anchor", "middle")
+        .text(function (d) { return d["word"]; })
+        .styles({
+            "fill": "#9d9d9d" ,
+            "font-family": "Coda', cursive",
+            "font-size": "12px"
+        });
 
 
 }

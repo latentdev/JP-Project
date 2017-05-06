@@ -9,6 +9,7 @@
         <input id="search" type="text" class="tftextinput" placeholder="Enter Query Here" name="q" size="21" maxlength="120"><input id="submit" type="submit" class="tfbutton" value=" ">
     </div>
     <div class="col-md-12" id="tweets">
+        <p class="col-md-12" id="tweettext"></p>
         <div class="col-md-12" id="graph">
                 <div class="loading-container">
                     <div class="loading">Loading...</div>
@@ -36,6 +37,14 @@
                         <h1 id="tweettext">Location of tweets</h1>
                         <p id="tweettext">This graph displays the geo-location of each tweet returned by your search. Geo-location data is an opt-in feature that not many people use, so data is sparse and this graph will likely only show a small number of results.</p>
                     </div>
+                </div>
+                <hr />
+                <div class="col-md-12">
+                    <div id="paragraph3" class="col-md-6">
+                        <h1 id="tweettext">Location of tweets</h1>
+                        <p id="tweettext">This graph displays the geo-location of each tweet returned by your search. Geo-location data is an opt-in feature that not many people use, so data is sparse and this graph will likely only show a small number of results.</p>
+                    </div>
+                    <div id="chart4" class="col-md-6" style="margin-top:20px"></div>
                 </div>
                
             </div>
@@ -70,6 +79,7 @@
         });
     };
     function handleResults2(datum) {
+        $("#tweettext").text(JSON.stringify(datum));
         timegraph(d3, datum, '#chart2');
         $.ajax({
             url: '@Url.Action("pinmapjson", "Graph")',
@@ -80,6 +90,15 @@
     function handleResults3(data)
     {
         pinmap(data, '#chart3');
+        $.ajax({
+            url: '@Url.Action("bubbleChartJson", "Graph")',
+            type: "GET",
+            success: handleResults4
+        });
+    }
+    function handleResults4(data)
+    {
+        bubblechart(data, '#chart4');
 
     }
     function slideUp() {
