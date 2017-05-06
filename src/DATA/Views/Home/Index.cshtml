@@ -1,145 +1,137 @@
 ﻿@{
     ViewData["Title"] = "#DATA";
 }
-<div id="middle">
-    <div id="backimage">
+<div class="col-md-12" id="middle">
+    <div class="col-md-4"  id="backimage">
         <p id="title">#DATA</p>
     </div>
-    <div id="tfheader">
-
+    <div class="col-md-12" id="tfheader">
         <input id="search" type="text" class="tftextinput" placeholder="Enter Query Here" name="q" size="21" maxlength="120"><input id="submit" type="submit" class="tfbutton" value=" ">
-
     </div>
-    <div id="options">
-
-    </div>
-    <div id="tweets">
-        <div id="icons">
-            <div id="page"><img id="svg-graph" src="~/images/PIE.svg" alt="Pie" /></div>
-            <div id="page"><img id="svg-graph" src="~/images/BAR.svg" alt="Bar" /></div>
-            <div id="page"><img id="svg-graph" src="~/images/LINE.svg" alt="Line" /></div>
-            <div id="page"><img id="svg-graph" src="~/images/VENN.svg" alt="Venn" /></div>
-        </div>
-        <div id="data">
-            <div id="graph">
+    <div class="col-md-12" id="tweets">
+        <p class="col-md-12" id="tweettext"></p>
+        <div class="col-md-12" id="graph">
                 <div class="loading-container">
                     <div class="loading">Loading...</div>
                 </div>
-            <!--<iframe frameBorder="0"></iframe>-->
-                <p id="tweettext"></p>
-                <div id="chart"></div>
+            <div class="col-md-12" id="info">
+                <div class="col-md-12">
+                    <div id="chart" class="col-md-6 img-responsive" style="margin-top:20px"></div>
+                    <div id="paragraph" class="col-md-6">
+                        <h1 id="tweettext">Commonly Associated Hashtags</h1>
+                        <p id="tweettext">This graph shows the top 5 hashtags that are used in conjunction with the search term.</p>
+                    </div>
+                </div>
+                <hr />
+                <div class="col-md-12">
+                    <div id="paragraph2" class="col-md-6">
+                        <h1 id="tweettext">Tracking a hashtag's usage over a period of time</h1>
+                        <p id="tweettext">This graph tracks the search term over the period of time covered by our results. This way you can see a visual representation of a hashtag's trend.</p>
+                    </div>
+                    <svg id="chart2" class="col-md-6" style="margin-top:20px"></svg>
+                </div>
+                <hr />
+                <div class="col-md-12">
+                    <div id="chart3" class="col-md-6" style="margin-top:20px"></div>
+                    <div id="paragraph3" class="col-md-6">
+                        <h1 id="tweettext">Location of tweets</h1>
+                        <p id="tweettext">This graph displays the geo-location of each tweet returned by your search. Geo-location data is an opt-in feature that not many people use, so data is sparse and this graph will likely only show a small number of results.</p>
+                    </div>
+                </div>
+                <hr />
+                <div class="col-md-12">
+                    <div id="paragraph3" class="col-md-6">
+                        <h1 id="tweettext">Location of tweets</h1>
+                        <p id="tweettext">This graph displays the geo-location of each tweet returned by your search. Geo-location data is an opt-in feature that not many people use, so data is sparse and this graph will likely only show a small number of results.</p>
+                    </div>
+                    <div id="chart4" class="col-md-6" style="margin-top:20px"></div>
+                </div>
+               
             </div>
         </div>
     </div>
-    <div id="footerSpace"style="margin-top:36vh"></div>
+    <div class="col-md-12" id="footerSpace"style="margin-top:36vh"></div>
 </div>
-<script src="https://d3js.org/d3.v4.min.js"></script>
+<!--<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
+<script src="//d3js.org/d3.geo.projection.v0.min.js"></script>
+<script src="//d3js.org/topojson.v1.min.js"></script>-->
 
 
 
 <script type="text/javascript">
     $ = jQuery;
 
-    function piechart(d3, dataset) {
-        var donutWidth = 100;
-        var size = Math.min($("#graph").height(), $("#graph").width())-100;
-            var width = size;
-            var height = size;
-            var radius = Math.min(width, height) / 2;
-
-            var color = d3.scaleOrdinal()
-                .range(['#E1004C', '#00A47F', '#FF6200', '#70E500', '#00644E']);
-
-            var svg = d3.select('#chart')
-              .append('svg')
-              .attr('width', width)
-              .attr('height', height)
-              .append('g')
-              .attr('transform', 'translate(' + (width / 2) +
-                ',' + (height / 2) + ')');
-
-            var arc = d3.arc()
-              .innerRadius(radius-donutWidth)
-              .outerRadius(radius);
-
-            var pie = d3.pie()
-              .value(function(d) { return d.data; })
-              .sort(null);
-
-            var path = svg.selectAll('path')
-              .data(pie(dataset))
-              .enter()
-              .append('path')
-              .attr('d', arc)
-              .attr('fill', function(d) {
-                  return color(d.data.title);
-              });
-
-            var legendRectSize = 18;
-            var legendSpacing = 4;
-            
-            var legend = svg.selectAll('.tweettext')
-                  .data(color.domain())
-                  .enter()
-                  .append('g')
-                  .attr('transform', function (d, i) {
-                      var height = legendRectSize + legendSpacing;
-                      var offset = height * color.domain().length / 2;
-                      var horz = -2 * legendRectSize;
-                      var vert = i * height - offset;
-                      return 'translate(' + horz + ',' + vert + ')';
-                  });
-
-            legend.append('rect')
-                  .attr('width', legendRectSize)
-                  .attr('height', legendRectSize)
-                  .style('fill', color)
-                  .style('stroke', color);
-
-            legend.append('text')
-                  .attr('id','tweettext')
-                  .attr('x', legendRectSize + legendSpacing)
-                  .attr('y', legendRectSize - legendSpacing)
-                  .text(function (d) { return d; });
-
-    } (window.d3);
 
     function handleResults(data) {
         //$("#tweettext").text(JSON.stringify(data));
         $('.loading-container').hide();
         $('#chart').empty();
-        piechart(d3,data);
+        $('#chart2').empty();
+        $('#chart3').empty();
+        $('#info').show();
+
+        
+        piechart(d3, data, window.innerHeight / 3, '#chart');//Math.min($("#graph").height(), $("#graph").width())-200);
+        $.ajax('@Url.Action("timejson", "Graph")', {
+            method: 'GET',
+            success: handleResults2
+        });
     };
+    function handleResults2(datum) {
+        $("#tweettext").text(JSON.stringify(datum));
+        timegraph(d3, datum, '#chart2');
+        $.ajax({
+            url: '@Url.Action("pinmapjson", "Graph")',
+            type: "GET",
+            success: handleResults3
+        });
+    };
+    function handleResults3(data)
+    {
+        pinmap(data, '#chart3');
+        $.ajax({
+            url: '@Url.Action("bubbleChartJson", "Graph")',
+            type: "GET",
+            success: handleResults4
+        });
+    }
+    function handleResults4(data)
+    {
+        bubblechart(data, '#chart4');
+
+    }
     function slideUp() {
         var h = $(window).height() * .1;
 
         $("#title").animate({ 'font-size': '5vmax' }, 500);
         $("#tfheader").animate({ 'margin-top': '0vh' });
         $("#middle").animate({ 'margin-top': '0vh' }, 700, 'swing', function () {
-            $('#options').slideDown({
-                complete:
-                    function () {
+            $('.loading-container').show();
+            //$('#options').slideDown({
+               // complete:
+                    //function () {
                         $('#tweets').show({ complete: function () { $("#footerSpace").animate({ 'margin-top': '0vh' }, 'fast'); } })
-                    }
-            })
+                    //}
+            //})
         });
             
     };
 
 
-    $(document).ready(function () {
-
-    });
-
 
     $('#submit').click(function () {
         if ($('#search').val() != 'undefined') {
+            $('#info').hide();
+
+            $('.loading-container').show();
             slideUp();
             $.ajax('@Url.Action("search", "Graph")', {
                 method: 'POST',
                 data: { search: $('#search').val() },
                 success: handleResults
             });
+
         }
     });
     $('#search').keypress(function(e){

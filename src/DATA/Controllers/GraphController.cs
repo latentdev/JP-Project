@@ -69,7 +69,12 @@ namespace DATA.Controllers
             {
             return Json(Analysis.hashtag(Tweets.getInstance(), Tweets.getInstance().searchTerm));
             }
-        
+
+        public JsonResult bubbleChartJson()
+        {
+            return Json(Analysis.bubbleChart(Tweets.getInstance()));
+        }
+
         public JsonResult pinmapjson()
         {
             List<Tuple<double, double>> geocoords = new List<Tuple<double, double>>();

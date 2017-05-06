@@ -8,18 +8,18 @@ namespace DATA.Models
     public class Day
     {
         public int count;
-        public DateTime date;
+        public string date;
         public Day ()
         {
             count = 0;
-            date = DateTime.MinValue;
+            date = DateTime.MinValue.ToString();
         }
 
         public int getCount()
         {
             return count;
         }
-        public DateTime getDate()
+        public string getDate()
         {
             return date;
         }
@@ -29,7 +29,7 @@ namespace DATA.Models
             count = in_count;
         }
 
-        public void setDate(DateTime in_date)
+        public void setDate(string in_date)
         {
             date = in_date;
         }
