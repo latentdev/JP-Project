@@ -93,7 +93,8 @@ namespace DATA.Controllers
                                             t.tweet.CreatedBy.FriendsCount,
                                             t.tweet.Hashtags.Count,
                                             hasGeo,
-                                            t.tweet.UserMentions.Count));
+                                            t.tweet.UserMentions.Count,
+                                            t.sentiment));
                 }
             }
 

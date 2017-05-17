@@ -19,14 +19,14 @@
                     <div id="chart" class="col-md-6 img-responsive" style="margin-top:20px"></div>
                     <div id="paragraph" class="col-md-6">
                         <h1 id="tweettext">Commonly Associated Hashtags</h1>
-                        <p id="tweettext">This graph shows the top 5 hashtags that are used in conjunction with the search term.</p>
+                        <p id="tweettextpiechart">This graph shows the top 5 hashtags that are used in conjunction with the search term.</p>
                     </div>
                 </div>
                 <hr />
                 <div class="col-md-12">
                     <div id="paragraph2" class="col-md-6">
                         <h1 id="tweettext">Tracking a hashtag's usage over a period of time</h1>
-                        <p id="tweettext">This graph tracks the search term over the period of time covered by our results. This way you can see a visual representation of a hashtag's trend.</p>
+                        <p id="tweettexttime">This graph tracks the search term over the period of time covered by our results. This way you can see a visual representation of a hashtag's trend.</p>
                     </div>
                     <svg id="chart2" class="col-md-6" style="margin-top:20px"></svg>
                 </div>
@@ -35,14 +35,14 @@
                     <div id="chart3" class="col-md-6" style="margin-top:20px"></div>
                     <div id="paragraph3" class="col-md-6">
                         <h1 id="tweettext">Location of tweets</h1>
-                        <p id="tweettext123">This graph displays the geo-location of each tweet returned by your search. Geo-location data is an opt-in feature that not many people use, so data is sparse and this graph will likely only show a small number of results.</p>
+                        <p id="tweettextgeo">This graph displays the geo-location of each tweet returned by your search. Geo-location data is an opt-in feature that not many people use, so data is sparse and this graph will likely only show a small number of results.</p>
                     </div>
                 </div>
                 <hr />
                 <div class="col-md-12">
                     <div id="paragraph3" class="col-md-6">
-                        <h1 id="tweettext">Location of tweets</h1>
-                        <p id="tweettext">This graph displays the geo-location of each tweet returned by your search. Geo-location data is an opt-in feature that not many people use, so data is sparse and this graph will likely only show a small number of results.</p>
+                        <h1 id="tweettext">Bubble Chart</h1>
+                        <p id="tweettextbubble">This graph displays the geo-location of each tweet returned by your search. Geo-location data is an opt-in feature that not many people use, so data is sparse and this graph will likely only show a small number of results.</p>
                     </div>
                     <div id="chart4" class="col-md-6" style="margin-top:20px"></div>
                 </div>
@@ -71,6 +71,73 @@
         $('#chart3').empty();
         $('#info').show();
 
+        //DYNAMIC TEXT EDITING
+        $.ajax({
+            url: '@Url.Action("statsJson", "Graph")',
+            type: "GET",
+            success: function (data) {
+                //************
+                //calculate percentage of tweets with geo information and update text
+                var geocount = 0;
+                var total = 0;
+                data.forEach(function (d) {
+                    if (d.hasGeo)
+                        geocount++;
+                    total++;
+                });
+                geocount = ((geocount / total) * 100).toFixed(2);
+                var geodiv = document.getElementById("tweettextgeo");
+                geodiv.appendChild(document.createTextNode(" Only " + geocount + "% of people have geo data!"));
+                geodiv.style.color = '#9D9D9D';
+                //***********
+                //***********
+                //calculate percentage of tweets containing 0 hashtags
+                var nohashtagcount = 0;
+                data.forEach(function (d) {
+                    if (d.hashtagCount == 0)
+                        nohashtagcount++;
+                });
+                nohashtagcount = ((nohashtagcount / total) * 100).toFixed(2);
+                var piechartdiv = document.getElementById("tweettextpiechart");
+                piechartdiv.appendChild(document.createTextNode(" " + nohashtagcount + "% of posts contained 0 hashtags!"));
+                piechartdiv.style.color = "#9D9D9D";
+                //***********
+                //***********
+                //calculate sentiment score
+                var score = 0;
+                data.forEach(function (d) {
+                    score += d.sentimentScore;
+                });
+                score = ((score / total) * 100).toFixed(2);
+                var bubblediv = document.getElementById("tweettextbubble");
+                var feel = "positive";
+                if (score > 100)
+                    feel = "very positive";
+                else if (score < 40)
+                    feel = "negative";
+                else if (score < 25)
+                    feel = "very negative";
+
+                bubblediv.appendChild(document.createTextNode("The tweets appear to be " + feel + " True score: " + score));
+                bubblediv.style.color = "#9D9D9D";
+                //********
+                //********
+                //more stats
+                var avgfollowers = 0;
+                var avgfriends = 0;
+                data.forEach(function (d) {
+                    avgfollowers += d.followerCount;
+                    avgfriends += d.friendsCount;
+                });
+                avgfollowers = (avgfollowers / total).toFixed(2);
+                avgfriends = (avgfriends / total).toFixed(2);
+                var timediv = document.getElementById("tweettexttime");
+                timediv.appendChild(document.createTextNode("For this search users had an average of: " + avgfollowers + " followers and " + avgfriends + " friends"));
+                timediv.style.color = "#9D9D9D";
+
+            }
+        });
+
 
         piechart(d3, data, window.innerHeight / 3, '#chart');//Math.min($("#graph").height(), $("#graph").width())-200);
         $.ajax('@Url.Action("timejson", "Graph")', {
@@ -81,24 +148,7 @@
     function handleResults2(datum) {
         //$("#tweettext").text(JSON.stringify(datum));
         timegraph(d3, datum, '#chart2');
-        $.ajax({
-            url: '@Url.Action("statsJson", "Graph")',
-            type: "GET",
-            success: function(data)
-            {
-                var geocount = 0;
-                var total = 0;
-                data.forEach(function (d) {
-                    if (d.hasGeo)
-                        geocount++;
-                    total++;
-                });
-                geocount = ((geocount/total) * 100).toFixed(2);
-                document.getElementById("tweettext123").innerHTML = "Only " + geocount + "% of people have geo data";
-                document.getElementById("tweettext123").style.color = '#9D9D9D';
-                
-            }
-        });
+        
 
         $.ajax({
             url: '@Url.Action("pinmapjson", "Graph")',

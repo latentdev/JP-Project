@@ -13,8 +13,9 @@ namespace DATA.Models
         public int hashtagCount { get; set; }
         public bool hasGeo { get; set; }
         public int userMentionCount { get; set; }
+        public int sentimentScore { get; set; }
 
-        public statModel(DateTime creation, int followers, int friends, int hashcount, bool geo, int usermentions)
+        public statModel(DateTime creation, int followers, int friends, int hashcount, bool geo, int usermentions, int sentiment)
         {
             accountCreationDate = creation;
             followerCount = followers;
@@ -22,6 +23,7 @@ namespace DATA.Models
             hashtagCount = hashcount;
             hasGeo = geo;
             userMentionCount = usermentions;
+            sentimentScore = sentiment;
         }
 
         public statModel()
