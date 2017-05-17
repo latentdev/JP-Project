@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "#DATA";
+}
+
+
+<div id="middle">
+    <div id="search">
+    <div class="col-md-4" id="backimage">
+        <p id="title">#DATA</p>
+    </div>
+    <div class="col-md-12" id="tfheader">
+        <input id="search" type="text" class="tftextinput" placeholder="Enter Query Here" name="q" size="21" maxlength="120"><input id="submit" type="submit" class="tfbutton" value=" ">
+    </div>
+    </div>
+    <div id="graph">
+        <div class="loading-container">
+            <div class="loading">Loading...</div>
+        </div>
+        <div id="parallax"></div>
+        <div id="explanation">
+            <p id="tweettext">Here is a pie chart!</p>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $ = jQuery;
+    $('.loading-container').hide();
+    $('#explanation').hide();
+
+    function handleResults(data) {
+        //$("#tweettext").text(JSON.stringify(data));
+        $('#search').hide();
+        $('.loading-container').hide();
+        //$('#chart').empty();
+        //$('#chart2').empty();
+        //$('#chart3').empty();
+        $('#explanation').show();
+
+        
+        piechart(d3, data, window.innerWidth/2, '#parallax');//Math.min($("#graph").height(), $("#graph").width())-200);
+    };
+        function slideUp() {
+        var h = $(window).height() * .1;
+
+        $("#title").animate({ 'font-size': '5vmax' }, 500);
+        $("#tfheader").animate({ 'margin-top': '0vh' });
+        $("#middle").animate({ 'margin-top': '0vh' }, 700, 'swing', function () {
+            $('.loading-container').show();
+            //$('#options').slideDown({
+               // complete:
+                    //function () {
+                        //$('#explanation').show({ complete: function () { $("#footerSpace").animate({ 'margin-top': '0vh' }, 'fast'); } })
+                    //}
+            //})
+        });
+    };
+
+
+
+    $('#submit').click(function () {
+        if ($('#search').val() != 'undefined') {
+            //$('#info').hide();
+
+            //$('.loading-container').show();
+            slideUp();
+            $.ajax('@Url.Action("search", "Graph")', {
+                method: 'POST',
+                data: { search: $('#search').val() },
+                success: handleResults
+            });
+
+        }
+    });
+    $('#search').keypress(function(e){
+        if(e.which == 13){
+            $('#submit').click();
+        }
+    });
+</script>
+

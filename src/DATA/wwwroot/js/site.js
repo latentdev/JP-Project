@@ -141,8 +141,8 @@ function pinmap(result, tag) {
         marks.push(mark);
     });
 
-    var width = $(tag).width(),//960,
-     height = $(tag).width() / 1.65;//580;
+    var height = window.innerHeight/2,//$(tag).width(),//960,
+        width = height * 1.65;//$(tag).width() / 1.65;//580;
     var color = d3.scaleOrdinal().range(['#E1004C', '#00A47F', '#FF6200', '#70E500', '#00644E']);
     var projection = d3.geo.kavrayskiy7()
         .scale(170)
@@ -210,7 +210,7 @@ function pinmap(result, tag) {
 
 function bubblechart(data, tag) {
            
-    var diameter = 650,//550, //max size of the bubbles
+    var diameter = window.innerHeight / 2,//550, //max size of the bubbles
         color = d3.scaleOrdinal().range(['#E1004C', '#00A47F', '#FF6200', '#70E500', '#00644E']);
 
 

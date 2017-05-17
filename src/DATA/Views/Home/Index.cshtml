@@ -79,7 +79,7 @@
         });
     };
     function handleResults2(datum) {
-        $("#tweettext").text(JSON.stringify(datum));
+        //$("#tweettext").text(JSON.stringify(datum));
         timegraph(d3, datum, '#chart2');
         $.ajax({
             url: '@Url.Action("pinmapjson", "Graph")',
@@ -115,7 +115,6 @@
                     //}
             //})
         });
-            
     };
 
 

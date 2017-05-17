@@ -88,6 +88,26 @@ td{
     margin-right:27vw;
     margin-bottom: 10vh;
 }
+
+#parallax {
+
+
+    /* Set a specific height */
+    min-height: 500px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#explanation{
+    display:none;
+    min-height: 500px;
+    width:100%;
+    background-color:#353535;
+    box-shadow: 7px 7px 2px #100f0f;
+}
 #backimage{
     width:100%;
 }
