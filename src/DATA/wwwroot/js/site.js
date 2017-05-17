@@ -71,15 +71,15 @@ function piechart(d3, dataset, size, tag) {
 
 } (window.d3);
 
-function timegraph(d3, data, tag) {
+function timegraph(d3, data, size, tag) {
 
-    $(tag).height(window.innerHeight/3);
-
-    var svg = d3.select(tag),
-    margin = { top: 20, right: 20, bottom: 30, left: 50 },
-    width = $(tag).height()*2 - margin.left - margin.right,
-    height = $(tag).height() - margin.top - margin.bottom,
-    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    //$(tag).height(size);
+    var margin = { top: 20, right: 20, bottom: 30, left: 50 },
+    svg = d3.select(tag).append('svg').attr('height', size).attr('width',$(tag).width()),
+    width = $(tag).width() - margin.left - margin.right,
+    height = size - margin.top - margin.bottom,
+    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    
 
     var parseTime = d3.timeParse("%m/%d/%Y %H:%M");
 
