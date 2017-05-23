@@ -65,6 +65,12 @@ td{
 #space{
 
 }
+#dev{
+    border-radius:25px;
+    padding:15px;
+    max-width: 100%;
+    min-width: 64px; 
+}
 #svg-graph{
 	max-width: 100%;
     min-width: 64px;
@@ -158,8 +164,8 @@ td{
 #page{
     min-width: 64px;
        
-    margin:20px;
-    margin-left:0px;
+    /*margin:20px;
+    margin-left:0px;*/
     background-color:#353535;
     box-shadow: 7px 7px 2px #100f0f;
 }

@@ -35,7 +35,10 @@ namespace DATA.Controllers
 
             return View();
         }
-
+        public IActionResult Gallery()
+        {
+            return View();
+        }
         public IActionResult Graphs()
         {
             return View();

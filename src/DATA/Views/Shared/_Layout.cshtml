@@ -70,9 +70,10 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Search</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Index1">Alt-Search</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Gallery">Gallery</a></li>
+                    <!--<li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li><a asp-area="" asp-controller="Graph" asp-action="pinmap">Locations</a></li>
-                    <li><a asp-area="" asp-controller="Graph" asp-action="time"># over time</a></li>
+                    <li><a asp-area="" asp-controller="Graph" asp-action="time"># over time</a></li>-->
                     @{
                         if (SignInManager.IsSignedIn(User))
                         {
@@ -90,8 +91,9 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
+
+        <footer style="position:fixed; bottom:0px; z-index:-6;">
+            <hr />
             <p>&copy; Never - DATA</p>
         </footer>
     </div>

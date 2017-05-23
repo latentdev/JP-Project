@@ -133,7 +133,7 @@ function timegraph(d3, data, size, tag) {
         .attr("d", line);
 }
 
-function pinmap(result, tag) {
+function pinmap(result,size, tag) {
 
     var marks = [];
     $.each(result, function (k, v) {
@@ -141,7 +141,7 @@ function pinmap(result, tag) {
         marks.push(mark);
     });
 
-    var height = window.innerHeight/2,//$(tag).width(),//960,
+    var height = size,//$(tag).width(),//960,
         width = height * 1.65;//$(tag).width() / 1.65;//580;
     var color = d3.scaleOrdinal().range(['#E1004C', '#00A47F', '#FF6200', '#70E500', '#00644E']);
     var projection = d3.geo.kavrayskiy7()
@@ -208,9 +208,9 @@ function pinmap(result, tag) {
 
 }
 
-function bubblechart(data, tag) {
+function bubblechart(data,size, tag) {
            
-    var diameter = window.innerHeight / 2,//550, //max size of the bubbles
+    var diameter = size//550, //max size of the bubbles
         color = d3.scaleOrdinal().range(['#E1004C', '#00A47F', '#FF6200', '#70E500', '#00644E']);
 
 
@@ -265,4 +265,46 @@ function bubblechart(data, tag) {
         });
 
 
+}
+
+function gallery(data,size,tag)
+{
+    d3.json(data, function (error, imgs) {
+
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        //var img = document.getElementById('myImg');
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        $('.close').css('margin-top', $('.container').height());
+        modalImg.style.maxWidth = $(window).width();
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+
+        // filter out posts without a thumbnail
+        var images = imgs;//imgs.data.children.filter(function (d) {
+            //return d.data.thumbnail.slice(-3) == "jpg";
+        //});
+
+        images.forEach(function (img) {
+            d3.select(tag)
+              .append("img")
+              .attr("height", 100)
+              .attr("src", img)
+              .on("click", function () {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+                captionText.innerHTML = this.alt;
+            });
+              
+        });
+    });
 }

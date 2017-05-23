@@ -89,7 +89,7 @@
     };
     function handleResults3(data)
     {
-        pinmap(data, '#chart3');
+        pinmap(data,window.innerHeight / 3, '#chart3');
         $.ajax({
             url: '@Url.Action("bubbleChartJson", "Graph")',
             type: "GET",
@@ -98,7 +98,7 @@
     }
     function handleResults4(data)
     {
-        bubblechart(data, '#chart4');
+        bubblechart(data,window.innerHeight / 3, '#chart4');
 
     }
     function slideUp() {

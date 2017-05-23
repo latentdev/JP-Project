@@ -15,20 +15,34 @@ namespace DATA.Helper
         {
             int sentimentScore = 0;
             String t=Regex.Replace(tweet, @"[^\w\s]", "");
+            bool amplified = false;
             var final = t.Split();
+            int multiply = 1;
             List<String> positive = ReadFile(System.IO.Directory.GetCurrentDirectory()+@"\wwwroot\Data\Positive.txt");
             List<String> negative = ReadFile(System.IO.Directory.GetCurrentDirectory()+@"\wwwroot\Data\Negative.txt");
+            List<String> intensify = ReadFile(System.IO.Directory.GetCurrentDirectory() + @"\wwwroot\Data\Intensifiers.txt");
             foreach (var character in final)
             {
+                if (amplified)
+                {
+                    multiply = 2;
+                }
+                else
+                    multiply = 1;
+
                 if (positive.Exists(x => x.ToString() == character))
                 {
-                    sentimentScore += 1;
+                    sentimentScore += 1*multiply;
+                    
                 }
                 else if (negative.Exists(x => x.ToString() == character))
                 {
-                    sentimentScore -= 1;
+                    sentimentScore -= 1*multiply;
                 }
-
+                if(intensify.Exists(x=>x.ToString() == character))
+                {
+                    amplified = true;
+                }
             }
             return sentimentScore;
         }

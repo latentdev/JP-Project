@@ -3,7 +3,7 @@
   <PropertyGroup>
     <ActiveDebugProfile>DATA</ActiveDebugProfile>
     <AutoRefresh>false</AutoRefresh>
-    <NameOfLastUsedPublishProfile>ld - Web Deploy %283%29</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>ld - Web Deploy %284%29</NameOfLastUsedPublishProfile>
     <WebStackScaffolding_ViewDialogWidth>600</WebStackScaffolding_ViewDialogWidth>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

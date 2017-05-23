@@ -3,7 +3,7 @@
 }
 
 <style>
-    #scroll-animate
+ #scroll-animate
 {
   overflow: hidden;
   display:none;
@@ -23,7 +23,7 @@
   width: 10px;
   top: 0;
   position: absolute;
-  z-index: 99;
+  
 }
 
 #heightPage
@@ -43,6 +43,8 @@
   background: #414042;
   top: 0;
   position: fixed;
+  padding-left:5vw;
+  padding-right:5vw;
   /*z-index: -4;*/
 }
 
@@ -52,40 +54,50 @@
   /*height: 100%;*/
   background: #414042;
   /*position: relative;*/
-  z-index: -1;
+  /*z-index: -1;*/
+  padding-left:5vw;
+  padding-right:5vw;
 }
 
 #graph1
 {
-    z-index:-4;
+    z-index:99;
     margin-top:75px;
 }
 
 #graph2
 {
-    z-index:-2;
+    z-index:1;
     position: relative;
 }
 
 #graph3
 {
-    z-index:0;
+    z-index:1;
     position: relative;
 }
 
 #graph4
 {
-    z-index:2;
+    z-index:1;
     position: relative;
+}
+#graph5
+{
+    z-index:1;
+    position: relative;
+    padding-left:0vw;
+    padding-right:0vw;
+    width:105%;
 }
 #content1
 {
-    z-index:-3;
+    z-index:1;
 }
 
 #content2
 {
-    z-index:-1;
+    z-index:1;
 }
 
 #content3
@@ -95,23 +107,27 @@
 
 #content4
 {
-    z-index:-3;
+    z-index:1;
+
+}
+#content4
+{
+    z-index:1;
 
 }
 
 .content
 {
-  /*height: 1000px;*/
-  /*min-height: 1000px;*/
   background: #353535;
   position: relative;
-  z-index: 1;
+  padding-left:5vw;
+  padding-right:5vw;
+    box-shadow: 0px -5px 20px  rgba(0, 0, 0, 0.5);
 }
 
 .wrapper-parallax {
   margin-top: 100%;
   margin-bottom: 0px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
 }
 
 h1{
@@ -142,6 +158,7 @@ footer h1
 .graphstyle,*/
 .scroll-animate-main
 {
+
   -webkit-transition-property: all;
      -moz-transition-property: all;
       transition-property: all;
@@ -153,6 +170,72 @@ footer h1
   -webkit-transition-timing-function: cubic-bezier(0, 0, 0, 1);
      -moz-transition-timing-function: cubic-bezier(0, 0, 0, 1);
       transition-timing-function: cubic-bezier(0, 0, 0, 1);
+}
+
+.modal{
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+.modal-content, #caption { 
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+}
+    keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
 }
 </style>
 
@@ -168,15 +251,6 @@ footer h1
     <div class="loading-container">
         <div class="loading">Loading...</div>
     </div>
-    <!--<div id="graph">
-        <div class="loading-container">
-            <div class="loading">Loading...</div>
-        </div>
-        <div id="parallax"></div>
-        <div id="explanation">
-            <p id="tweettext">Here is a pie chart!</p>
-        </div>
-    </div>-->
     <div id="scroll-animate">
         <div class="scroll-animate-main">
             <section class="graphstylestart" id="graph1"></section>
@@ -195,6 +269,11 @@ footer h1
 
         </div>
         <div class="scroll-animate-main">
+            <section class="graphstyle" id="graph5"></section>
+
+        </div>
+
+        <div class="scroll-animate-main">
             <div class="wrapper-parallax">
 
                 <section class="content" id="content1">
@@ -212,15 +291,35 @@ footer h1
                 <section class="content" id="content4">
                     <h1>Content 4</h1>
                 </section>
+
+                <section class="content" id="content5">
+                    <h1>Content 5</h1>
+                </section>
             </div>
         </div>
-        <div class="col-md-12" id="footerSpace" style="margin-top:36vh"></div>
+        <!--<div class="col-md-12" id="footerSpace" style="margin-top:36vh"></div>-->
+    </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- The Close Button -->
+        <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="img01">
+
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
     </div>
 </div>
 <script type="text/javascript">
     $ = jQuery;
     $('.loading-container').hide();
     $('#explanation').hide();
+    var windowsize = $(window).height(),
+        points = [windowsize, windowsize * 2, windowsize * 3,windowsize * 4],
+        checks = [false, false, false, false],
+        graphs = ['#graph2', '#graph3', '#graph4', '#graph5'];
 
     function handleResults(data) {
         //$("#tweettext").text(JSON.stringify(data));
@@ -247,7 +346,7 @@ footer h1
 
     function handleResults3(data)
     {
-        pinmap(data, '#graph3');
+        pinmap(data,$('#graph3').height(), '#graph3');
         $.ajax({
             url: '@Url.Action("bubbleChartJson", "Graph")',
             type: "GET",
@@ -258,6 +357,12 @@ footer h1
     function handleResults4(data)
     {
         bubblechart(data,$('#graph4').height()-100, '#graph4');
+        handleResults5();
+    }
+
+    function handleResults5()
+    {
+        gallery('@Url.Action("Images", "Graph")',0,'#graph5');
 
     }
 
@@ -273,12 +378,14 @@ footer h1
         $("#graph2").css('margin-top', height);
         $("#graph3").css('margin-top', height * 2);
         $("#graph4").css('margin-top', height * 3);
+        $("#graph5").css('margin-top', height * 4);
         $("#content2").css('margin-top', height - contentHeight);
         $("#content3").css('margin-top', height - contentHeight);
-        $("#content4").css('margin-top', height -contentHeight);
+        $("#content4").css('margin-top', height - contentHeight);
+        $("#content5").css('margin-top', height - contentHeight);
         $('.content').height(contentHeight);
         setParallax();
-        $("#middle").animate({ 'margin-top': '0vh' }, 700, 'swing', function () {
+        $("#middle").animate({ 'margin-top': '50px' }, 700, 'swing', function () {
             $('.loading-container').show();
             $('#explanation').show({ complete: function () { $("#footerSpace").animate({ 'margin-top': '0vh' }, 'fast'); } })
         });
@@ -289,9 +396,14 @@ footer h1
     $('#submit').click(function () {
         if ($('#search').val() != 'undefined') {
             //$('#info').hide();
+            var height = $(window).height();
+            $('.loading_container').css('position', 'fixed');
+            $('.loading_container').css('top', height / 2);
+            $('.loading').css('position', 'fixed');
+            $('.loading').css('top', height / 2);
 
-            $('.loading-container').show();
             slideUp();
+            $('.loading-container').show();
             $.ajax('@Url.Action("search", "Graph")', {
                 method: 'POST',
                 data: { search: $('#search').val() },
@@ -306,23 +418,6 @@ footer h1
         }
     });
 
-    function scrollFooter(scrollY, heightFooter) {
-        //console.log(scrollY);
-        //console.log(heightFooter);
-        
-
-        if (scrollY >= heightFooter) {
-            $('footer').css({
-                'bottom': '0px'
-            });
-        }
-        else {
-            $('footer').css({
-                'bottom': '-' + heightFooter + 'px'
-            });
-        }
-    }
-
     function setParallax() {
         var windowHeight = $(window).height(),
             footerHeight = $('footer').height(),
@@ -330,7 +425,7 @@ footer h1
 
 
         $('#scroll-animate, .scroll-animate-main').css({
-            'height': ((windowHeight*4)) + 'px'
+            'height': ((windowHeight*5)) + 'px'
         });
 
 
@@ -339,7 +434,6 @@ footer h1
             'margin-top': (windowHeight - (windowHeight/4)) + 'px'
         });
 
-        //scrollFooter(window.scrollY, footerHeight);
 
 
         window.onscroll = function () {
@@ -348,73 +442,39 @@ footer h1
             $('.scroll-animate-main').css({
                 'top': '-' + scroll + 'px'
             });
-            console.log("scroll: " + (-scroll));
-            console.log("windowHeight: " + (-windowHeight));
-            console.log("windowHeight2: " + (-windowHeight * 2));
-            console.log("windowHeight3: " + (-windowHeight * 3));
-            console.log("windowHeight4: " + (-windowHeight * 4));
 
-            if (-scroll <= -windowHeight)
-            {
-                if (-scroll <= -(windowHeight*2)) {
-                    if (-scroll <= -(windowHeight*3)) {
-                        //$('#graph4').removeClass("scroll-animate-main");
-                        $('#graph4').css('top', '0px');
+            for (var i = 0; i < 4; i++) {
+                if (scroll > points[i]) {
+                        checks[i] = true;
+                }
+                else
+                        checks[i] = false;
+            }
+            for (var i=0;i<4;i++){
+                if(checks[i]==true){
+                    $(graphs[i]).css('top', '0px');
 
-                        $('#graph4').css('margin-top', '50px');
-                        $('#graph4').css('position', 'fixed');
-                    }
-                    else{
-                        //$('#graph3').removeClass("scroll-animate-main");
-                        $('#graph3').css('top', '0px');
-
-                        $('#graph3').css('margin-top', '50px');
-                        $('#graph3').css('position', 'fixed');
-                    }
+                    $(graphs[i]).css('margin-top', '50px');
+                    $(graphs[i]).css('position', 'fixed');
                 }
                 else{
-                    //$('#graph2').removeClass("scroll-animate-main");
-                    $('#graph2').css('top', '0px');
-
-                    $('#graph2').css('margin-top', '50px');
-                    $('#graph2').css('position', 'fixed');
+                    $(graphs[i]).css('top', '');
+                    $(graphs[i]).css('margin-top', points[i]);
+                    $(graphs[i]).css('position', 'relative');
                 }
             }
-                //fix
-            else if (-scroll >= -(windowHeight*3))
+            if(scroll> points[3])
             {
-                if (-scroll >= -(windowHeight*2)) {
-                    if (-scroll >= -(windowHeight)) {
-                        //$('#content3').css('margin-top', heightDocument );
-                        $('#graph2').css('top', '');
-                        $('#graph2').css('margin-top', windowHeight);
-                        $('#graph2').css('position', 'relative');
-
-                        /*if ($('#graph2').hasClass("scroll-animate-main")==false)
-                            $('#graph2').addClass("scroll-animate-main");*/
-                    }
-                    
-                    //$('#content3').css('margin-top', heightDocument );
-                    $('#graph3').css('top', '');
-                    $('#graph3').css('margin-top', windowHeight*2);
-                    $('#graph3').css('position', 'relative');
-
-                        /*if ($('#graph3').hasClass("scroll-animate-main")==false)
-                            $('#graph3').addClass("scroll-animate-main");*/
-                    
-                }
-                
-                //$('#content3').css('margin-top', heightDocument );
-                $('#graph4').css('top', '');
-                $('#graph4').css('margin-top', windowHeight*3);
-                $('#graph4').css('position', 'relative');
-                    
-                    /*if($('#graph4').hasClass("scroll-animate-main")==false)
-                        $('#graph4').addClass("scroll-animate-main");*/
-                
+                $('#content5').css('bottom', '0px');
+                $('#content5').css('position', 'fixed');
+                $('#content5').css('width', '100%');
             }
-        
-            //scrollFooter(scroll, footerHeight);
+            else
+            {
+                $('#content5').css('bottom', '');
+                $('#content5').css('position', 'relative');
+
+            }
         }
     }
 </script>
