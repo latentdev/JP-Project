@@ -68,6 +68,39 @@ namespace DATA.Controllers
             return Json(Analysis.hashtag(Tweets.getInstance(), Tweets.getInstance().searchTerm));
             }
 
+
+        public ActionResult stats()
+        {
+            return View("~/Views/Home/linegraph.cshtml");
+        }
+
+        public JsonResult statsJson()
+        {
+            Tweets instance = Tweets.getInstance();
+            List<statModel> stats = new List<statModel>();
+            foreach (var t in instance.tweets)
+            {
+                bool hasGeo = false;
+                if (t.tweet.Place != null || t.tweet.Coordinates != null)
+                    hasGeo = true;
+
+                if (t.tweet.CreatedBy.FollowersCount < 10000)
+                {
+                    stats.Add(new statModel(t.tweet.CreatedBy.CreatedAt,
+                                            t.tweet.CreatedBy.FollowersCount,
+                                            t.tweet.CreatedBy.FriendsCount,
+                                            t.tweet.Hashtags.Count,
+                                            hasGeo,
+                                            t.tweet.UserMentions.Count,
+                                            t.sentiment));
+                }
+            }
+
+            var orderedstats = stats.OrderBy(statModel => statModel.followerCount);
+
+            return Json(orderedstats);
+        }
+
         public JsonResult bubbleChartJson()
         {
             return Json(Analysis.bubbleChart(Tweets.getInstance()));
