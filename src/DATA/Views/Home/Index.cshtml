@@ -147,13 +147,8 @@
     };
     function handleResults2(datum) {
         //$("#tweettext").text(JSON.stringify(datum));
-<<<<<<< HEAD
-        timegraph(d3, datum, window.innerHeight / 3, '#chart2');
-=======
-        timegraph(d3, datum, '#chart2');
-        
 
->>>>>>> refs/remotes/origin/master
+        timegraph(d3, datum, window.innerHeight / 3, '#chart2');
         $.ajax({
             url: '@Url.Action("pinmapjson", "Graph")',
             type: "GET",
@@ -188,10 +183,6 @@
                     //}
             //})
         });
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/master
     };
 
 

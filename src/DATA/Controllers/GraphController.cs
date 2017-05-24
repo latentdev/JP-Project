@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using DATA.Helper;
 using Tweetinvi;
 using DATA.Models;
+using System.Linq;
 
 //cant get tweets from model
 

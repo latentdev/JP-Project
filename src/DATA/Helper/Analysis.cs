@@ -117,7 +117,7 @@ namespace DATA.Helper
         //Analyzing hashtag used over period of time
         //
 
-        public static List<Day> hashtag(Tweets tweets, string search)
+        public static IEnumerable<Day> hashtag(Tweets tweets, string search)
         {
             DateTime startDate = tweets.tweets[0].tweet.CreatedAt;
             DateTime endDate = startDate;
@@ -162,7 +162,8 @@ namespace DATA.Helper
                         i--;
                     }
                 }
-                return count;
+                //count.Sort();
+                return count.OrderBy(x=>x.date);
             }
             else
             {
@@ -194,7 +195,8 @@ namespace DATA.Helper
                     }
 
                 }
-                return count;
+                //count.Sort();
+                return count.OrderBy(x=>x.date);
             }
 
         }
