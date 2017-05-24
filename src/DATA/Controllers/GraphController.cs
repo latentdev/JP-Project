@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DATA.Helper;
 using Tweetinvi;
 using DATA.Models;
+using System.Linq;
 
 //cant get tweets from model
 
@@ -133,6 +132,11 @@ namespace DATA.Controllers
             }
 
             return Json(geocoords);
+        }
+
+        public JsonResult Images()
+        {
+            return Json(Analysis.Images());
         }
     }
 }

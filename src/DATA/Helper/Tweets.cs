@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Tweetinvi;
+using Tweetinvi.Models;
 
 namespace DATA.Helper
 {
@@ -22,7 +20,9 @@ namespace DATA.Helper
             var searchParameter = new Tweetinvi.Parameters.SearchTweetsParameters(search)
             {
                 Lang = Tweetinvi.Models.LanguageFilter.English,
-                MaximumNumberOfResults = count
+                MaximumNumberOfResults = count,
+                TweetSearchType = Tweetinvi.Parameters.TweetSearchType.OriginalTweetsOnly,
+                SearchType = SearchResultType.Mixed
             };
             var tweets = Tweetinvi.Search.SearchTweets(searchParameter);
 

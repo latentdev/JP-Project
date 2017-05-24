@@ -28,7 +28,7 @@
                         <h1 id="tweettext">Tracking a hashtag's usage over a period of time</h1>
                         <p id="tweettexttime">This graph tracks the search term over the period of time covered by our results. This way you can see a visual representation of a hashtag's trend.</p>
                     </div>
-                    <svg id="chart2" class="col-md-6" style="margin-top:20px"></svg>
+                    <div id="chart2" class="col-md-6" style="margin-top:20px"></div>
                 </div>
                 <hr />
                 <div class="col-md-12">
@@ -147,9 +147,8 @@
     };
     function handleResults2(datum) {
         //$("#tweettext").text(JSON.stringify(datum));
-        timegraph(d3, datum, '#chart2');
-        
 
+        timegraph(d3, datum, window.innerHeight / 3, '#chart2');
         $.ajax({
             url: '@Url.Action("pinmapjson", "Graph")',
             type: "GET",
@@ -158,7 +157,7 @@
     };
     function handleResults3(data)
     {
-        pinmap(data, '#chart3');
+        pinmap(data,window.innerHeight / 3, '#chart3');
         $.ajax({
             url: '@Url.Action("bubbleChartJson", "Graph")',
             type: "GET",
@@ -167,7 +166,7 @@
     }
     function handleResults4(data)
     {
-        bubblechart(data, '#chart4');
+        bubblechart(data,window.innerHeight / 3, '#chart4');
 
     }
     function slideUp() {
@@ -184,7 +183,6 @@
                     //}
             //})
         });
-
     };
 
 

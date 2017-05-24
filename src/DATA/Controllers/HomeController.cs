@@ -17,6 +17,11 @@ namespace DATA.Controllers
             return View();
         }
 
+        public IActionResult Index1()
+        {
+            return View();
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -30,7 +35,10 @@ namespace DATA.Controllers
 
             return View();
         }
-
+        public IActionResult Gallery()
+        {
+            return View();
+        }
         public IActionResult Graphs()
         {
             return View();
