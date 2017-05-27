@@ -34,7 +34,7 @@ namespace DATA.Helper
     public class Analysis
     {
 
-        public static List<DataSet> commonTags(Tweets tweets,string search, int top=5)
+        public static Package commonTags(Tweets tweets,string search, int top=5)
         {
             List<DataSet> commonTags = new List<DataSet>();
             List<TagSet> tags = new List<TagSet>();
@@ -76,7 +76,17 @@ namespace DATA.Helper
                 index--;
             }
             TopTags.Sort((x, y) => x.data.CompareTo(y.data));
-            return TopTags;
+            Package data = new Package();
+            string text = "The most commonly used hashtag was " + TopTags[0].title + " with " + TopTags[0].data + " uses.";
+            data.data = TopTags;
+            data.text = text;
+            return data;
+        }
+
+        public static Package FavoriteHashtags()
+        {
+            Package data = new Package();
+            return data;
         }
 
         public static List<bubbleModel> bubbleChart(Tweets tweets)
