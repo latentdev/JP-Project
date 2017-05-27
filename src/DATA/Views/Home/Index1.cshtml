@@ -278,7 +278,7 @@ footer h1
             <div class="wrapper-parallax">
 
                 <section class="content" id="content1">
-                    <h1>Content 1</h1>
+                    <p class="data1text" id="tweettext">Content 1</p>
                 </section>
 
                 <section class="content" id="content2">
@@ -327,7 +327,8 @@ footer h1
         $('#searchbox').hide();
         $('.loading-container').hide();
         $('#scroll-animate').show();
-        piechart(d3, data, $('#graph1').height()-100, '#graph1');//Math.min($("#graph").height(), $("#graph").width())-200);
+        $('.data1text').text(data.text);
+        piechart(d3, data.data, $('#graph1').height()-100, '#graph1');//Math.min($("#graph").height(), $("#graph").width())-200);
         //piechart(d3, data, $('#graph2').height() - 100, '#graph2');
         $.ajax('@Url.Action("timejson", "Graph")', {
             method: 'GET',
