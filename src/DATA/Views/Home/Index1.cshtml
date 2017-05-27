@@ -65,6 +65,12 @@
     margin-top:75px;
 }
 
+#graphfavorites
+{
+    z-index:99;
+    margin-top:75px;
+}
+
 #graph2
 {
     z-index:1;
@@ -123,6 +129,8 @@
   padding-left:5vw;
   padding-right:5vw;
     box-shadow: 0px -5px 20px  rgba(0, 0, 0, 0.5);
+    text-align:center;
+    vertical-align:middle;
 }
 
 .wrapper-parallax {
@@ -253,8 +261,14 @@ footer h1
     </div>
     <div id="scroll-animate">
         <div class="scroll-animate-main">
-            <section class="graphstylestart" id="graph1"></section>
-
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <section class="graphstylestart" id="graph1"></section>
+                </div>
+                <div class="col-md-6">
+                    <section class="graphstylestart" id="graphfavorites"></section>
+                </div>
+            </div>
         </div>
         <div class="scroll-animate-main">
             
@@ -327,42 +341,53 @@ footer h1
         $('#searchbox').hide();
         $('.loading-container').hide();
         $('#scroll-animate').show();
-        $('.data1text').text(data.text);
-        piechart(d3, data.data, $('#graph1').height()-100, '#graph1');//Math.min($("#graph").height(), $("#graph").width())-200);
+        $('.data1text').text(data[0].text);
+        piechart(d3, data[0].data, $('#graph1').height() - 100, '#graph1');//Math.min($("#graph").height(), $("#graph").width())-200);
+        piechart(d3, data[1].data, $('#graphfavorites').height() - 100, '#graphfavorites');
+        timegraph(d3, data[2].data, $('#graph2').height() - 100, '#graph2');
+        pinmap(data[3].data, $('#graph3').height(), '#graph3');
+        bubblechart(data[4].data, $('#graph4').height() - 100, '#graph4');
+        gallery(data[5].data, 0, '#graph5');
         //piechart(d3, data, $('#graph2').height() - 100, '#graph2');
-        $.ajax('@Url.Action("timejson", "Graph")', {
+        @*$.ajax('@Url.Action("FavoriteHashtags", "Graph")', {
             method: 'GET',
             success: handleResults2
-        });
+        });*@
     };
-
-    function handleResults2(datum) {
+    function handleResults2(data) {
+        piechart(d3, data.data, $('#graphfavorites').height() - 100, '#graphfavorites');
+        $.ajax('@Url.Action("time", "Graph")', {
+            method: 'GET',
+            success: handleResults3
+        });
+    }
+    function handleResults3(datum) {
         //$("#tweettext").text(JSON.stringify(datum));
-        timegraph(d3, datum, $('#graph2').height() - 100, '#graph2');
+        timegraph(d3, datum.data, $('#graph2').height() - 100, '#graph2');
         $.ajax({
             url: '@Url.Action("pinmapjson", "Graph")',
             type: "GET",
-            success: handleResults3
+            success: handleResults4
         });
     };
 
-    function handleResults3(data)
+    function handleResults4(data)
     {
-        pinmap(data,$('#graph3').height(), '#graph3');
+        pinmap(data.data,$('#graph3').height(), '#graph3');
         $.ajax({
             url: '@Url.Action("bubbleChartJson", "Graph")',
             type: "GET",
-            success: handleResults4
+            success: handleResults5
         });
     }
 
-    function handleResults4(data)
+    function handleResults5(data)
     {
-        bubblechart(data,$('#graph4').height()-100, '#graph4');
-        handleResults5();
+        bubblechart(data.data,$('#graph4').height()-100, '#graph4');
+        handleResults6();
     }
 
-    function handleResults5()
+    function handleResults6()
     {
         gallery('@Url.Action("Images", "Graph")',0,'#graph5');
 

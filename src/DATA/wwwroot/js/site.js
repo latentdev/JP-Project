@@ -142,7 +142,7 @@ function pinmap(result,size, tag) {
     });
 
     var height = size,//$(tag).width(),//960,
-        width = height * 1.65;//$(tag).width() / 1.65;//580;
+        width = height * 2;//$(tag).width() / 1.65;//580;
     var color = d3.scaleOrdinal().range(['#E1004C', '#00A47F', '#FF6200', '#70E500', '#00644E']);
     var projection = d3.geo.kavrayskiy7()
         .scale(170)
@@ -269,7 +269,7 @@ function bubblechart(data,size, tag) {
 
 function gallery(data,size,tag)
 {
-    d3.json(data, function (error, imgs) {
+    //d3.json(data, function (error, imgs) {
 
         // Get the modal
         var modal = document.getElementById('myModal');
@@ -290,7 +290,7 @@ function gallery(data,size,tag)
 
 
         // filter out posts without a thumbnail
-        var images = imgs;//imgs.data.children.filter(function (d) {
+        var images = data;//imgs.data.children.filter(function (d) {
             //return d.data.thumbnail.slice(-3) == "jpg";
         //});
 
@@ -306,5 +306,5 @@ function gallery(data,size,tag)
             });
               
         });
-    });
+    //});
 }
