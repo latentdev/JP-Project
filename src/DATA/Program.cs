@@ -5,6 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
+// Main launcher for the server main function
+// FUNCTION: Starts the server. Written in C#
+
 namespace DATA
 {
     public class Program
