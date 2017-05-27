@@ -59,9 +59,10 @@ namespace DATA.Helper
                     {
                         count++;
                         //average the sentiment score
-                        sentiment = (sentiment + T.sentiment) / count;
+                        sentiment = (sentiment + T.sentiment);
                     }
                 }
+                sentiment /= count;
                 DataSet x = new DataSet(tag.tag.ToString(), count, sentiment);
                 commonTags.Add(x);
                 tags.RemoveAll(y => y.tag == tag.tag.ToString());
@@ -106,7 +107,7 @@ namespace DATA.Helper
 
             for (var i = 0; i < wordlist.Count; i++)
             {
-                if (wordcount[i] > 20 && !commonwords.Contains(wordlist[i].ToLower()) && !wordlist[i].Contains("http"))
+                if (wordcount[i] > 10 && !commonwords.Contains(wordlist[i].ToLower()) && !wordlist[i].Contains("http"))
                     bubbles.Add(new bubbleModel(wordlist[i], wordcount[i]));
             }
 
@@ -116,7 +117,7 @@ namespace DATA.Helper
         //Analyzing hashtag used over period of time
         //
 
-        public static List<Day> hashtag(Tweets tweets, string search)
+        public static IEnumerable<Day> hashtag(Tweets tweets, string search)
         {
             DateTime startDate = tweets.tweets[0].tweet.CreatedAt;
             DateTime endDate = startDate;
@@ -161,7 +162,8 @@ namespace DATA.Helper
                         i--;
                     }
                 }
-                return count;
+                //count.Sort();
+                return count.OrderBy(x=>x.date);
             }
             else
             {
@@ -193,10 +195,23 @@ namespace DATA.Helper
                     }
 
                 }
-                return count;
+                //count.Sort();
+                return count.OrderBy(x=>x.date);
             }
 
-            
+        }
+        public static List<string> Images()
+        {
+            Tweets instance = Tweets.getInstance();
+            List<string> images = new List<string>();
+            foreach (var tweet in instance.tweets)
+            {
+                foreach (var image in tweet.tweet.Media)
+                {
+                    images.Add(image.MediaURLHttps);
+                }
+            }
+            return images;
         }
     }
 }
