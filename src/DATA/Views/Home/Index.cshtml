@@ -35,7 +35,7 @@
                     <div id="chart3" class="col-md-6" style="margin-top:20px"></div>
                     <div id="paragraph3" class="col-md-6">
                         <h1 id="tweettext">Location of tweets</h1>
-                        <p id="tweettextgeo">This graph displays the geo-location of each tweet returned by your search. Geo-location data is an opt-in feature that not many people use, so data is sparse and this graph will likely only show a small number of results.</p>
+                        <p id="tweettextgeo"></p>
                     </div>
                 </div>
                 <hr />
@@ -71,6 +71,7 @@
         $('#chart3').empty();
         $('#info').show();
 
+        
         //DYNAMIC TEXT EDITING
         $.ajax({
             url: '@Url.Action("statsJson", "Graph")',
@@ -137,7 +138,7 @@
 
             }
         });
-
+   
 
         piechart(d3, data, window.innerHeight / 3, '#chart');//Math.min($("#graph").height(), $("#graph").width())-200);
         $.ajax('@Url.Action("timejson", "Graph")', {
@@ -157,6 +158,7 @@
     };
     function handleResults3(data)
     {
+        $("#tweettextgeo").text(data.text);
         pinmap(data,window.innerHeight / 3, '#chart3');
         $.ajax({
             url: '@Url.Action("bubbleChartJson", "Graph")',
@@ -184,7 +186,7 @@
             //})
         });
     };
-
+    
 
 
     $('#submit').click(function () {

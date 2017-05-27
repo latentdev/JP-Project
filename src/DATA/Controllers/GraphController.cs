@@ -29,7 +29,7 @@ namespace DATA.Controllers
                 IEnumerable<Tweetinvi.Models.ITweet> tweets = null;
                 if (search != null)
                 {
-                    tweets = SearchTweets.Search(search, 1000);
+                    tweets = SearchTweets.Search(search, 500);
                     foreach (var twit in tweets)
                     {
                         Models.Tweet T = new Models.Tweet();
@@ -107,9 +107,11 @@ namespace DATA.Controllers
             return Json(Analysis.bubbleChart(Tweets.getInstance()));
         }
 
+        /*
         public JsonResult pinmapjson()
         {
             List<Tuple<double, double>> geocoords = new List<Tuple<double, double>>();
+            Package datapack = new Package();
             Tweets instance = Tweets.getInstance();
             var avglong = 0.0;
             var avglat = 0.0;
@@ -133,6 +135,44 @@ namespace DATA.Controllers
 
             return Json(geocoords);
         }
+        */
+
+        public JsonResult pinmapjson()
+        {
+            List<Tuple<double, double>> geocoords = new List<Tuple<double, double>>();
+            Package datapack = new Package();
+            Tweets instance = Tweets.getInstance();
+            var avglong = 0.0;
+            var avglat = 0.0;
+            double count = 0.0;
+            double geocount = 0.0;
+            foreach (var t in instance.tweets)
+            {
+                count++;
+                if (t.tweet.Coordinates != null || t.tweet.Place != null)
+                {
+                    geocount++;
+                    if (t.tweet.Coordinates != null)
+                    {
+                        geocoords.Add(new Tuple<double, double>(t.tweet.Coordinates.Longitude, t.tweet.Coordinates.Latitude));
+                    }
+                    else
+                    {
+                        //find center of tweet location bounding box to place pin
+                        avglong = (t.tweet.Place.BoundingBox.Coordinates[0].Longitude + t.tweet.Place.BoundingBox.Coordinates[1].Longitude) / 2;
+                        avglat = (t.tweet.Place.BoundingBox.Coordinates[0].Latitude + t.tweet.Place.BoundingBox.Coordinates[2].Latitude) / 2;
+                        geocoords.Add(new Tuple<double, double>(avglong, avglat));
+                    }
+                }
+            }
+            datapack.data = geocoords;
+            var geopercent = Math.Round((geocount / count) * 100, 2);
+            string sendstr = "Geo data is very sparse because it must be manually enabled on twitter. For this search only " +
+                             geopercent + "% of tweets contain geo data.";
+            datapack.text = sendstr;
+            return Json(datapack);
+        }
+
 
         public JsonResult Images()
         {

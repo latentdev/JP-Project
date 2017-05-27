@@ -286,7 +286,7 @@ footer h1
                 </section>
 
                 <section class="content" id="content3">
-                    <h1>Content 3</h1>
+                    <p class="data3text" id="tweettext">Content 1</p>
                 </section>
 
                 <section class="content" id="content4">
@@ -347,7 +347,8 @@ footer h1
 
     function handleResults3(data)
     {
-        pinmap(data,$('#graph3').height(), '#graph3');
+        $('.data3text').text(data.text);
+        pinmap(data.data,$('#graph3').height(), '#graph3');
         $.ajax({
             url: '@Url.Action("bubbleChartJson", "Graph")',
             type: "GET",
