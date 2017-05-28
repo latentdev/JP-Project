@@ -104,14 +104,16 @@ namespace DATA.Helper
                 {
                     foreach (var hashtag in tweet.tweet.Hashtags)
                     {
-                        if(!hashtags.Contains(hashtag.Text))
+                        if(!hashtags.Contains<string>(hashtag.Text))
                         {
                             hashtags.Add(hashtag.Text.ToLower());
                         }
 
                     }
                 }
-                hashtags.Remove(search.ToLower());
+                var term=search.Remove(0, 1);
+                hashtags=hashtags.Distinct().ToList();
+                hashtags.RemoveAll(x=>x==term.ToLower());
                 foreach (var text in hashtags)
                 {
                     DataSet tag = new DataSet();
