@@ -306,7 +306,8 @@ namespace DATA.Helper
             {
                 foreach (var image in tweet.tweet.Media)
                 {
-                    images.Add(image.MediaURLHttps);
+                    if (tweet.tweet.PossiblySensitive == false)
+                        images.Add(image.URL);//MediaURLHttps);
                 }
             }
             Package package = new Package();
