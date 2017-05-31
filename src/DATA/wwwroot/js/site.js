@@ -198,9 +198,9 @@ function pinmap(result,size, tag) {
             .attr('class', 'mark')
             .attr('width', 20)
             .attr('height', 25)
-            .attr("xlink:href", "../../images/locater.svg")//'https://cdn3.iconfinder.com/data/icons/softwaredemo/PNG/24x24/DrawingPin1_Blue.png')
+            .attr("xlink:href", "../../images/locater.svg")
             .attr("transform", function (d) {
-                return "translate(" + projection([d.long, d.lat]) + ")";
+                return "translate(" + projection([d.long-6, d.lat+7.5]) + ")";
             });
     });
     d3.select(self.frameElement).style("height", height + "px");

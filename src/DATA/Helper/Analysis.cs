@@ -56,7 +56,7 @@ namespace DATA.Helper
                 }
             }
             tags.RemoveAll(x => x.tag == search.ToLower());
-            int hashtagCount = tags.Count;
+            int hashtagCount = tags.Distinct().Count();
             while (tags.Count()!=0)
             {
                 
@@ -88,7 +88,7 @@ namespace DATA.Helper
             }
             TopTags.Sort((x, y) => x.data.CompareTo(y.data));
             Package data = new Package();
-            string text = "Search results returned "+hashtagCount+" unique hashtags. The most commonly used hashtag was " + TopTags[TopTags.Count-1].title + " with " + TopTags[TopTags.Count-1].data + " uses.";
+            string text = "The graph on the left shows the top 5 commonly used hashtags in the tweets found using the search " + tweets.searchTerm + ". We found "+hashtagCount+" unique hashtags. The most commonly used hashtag was " + TopTags[TopTags.Count-1].title + " with " + TopTags[TopTags.Count-1].data + " uses.";
             data.data = TopTags;
             data.text = text;
             return data;
@@ -307,7 +307,7 @@ namespace DATA.Helper
                 foreach (var image in tweet.tweet.Media)
                 {
                     if (tweet.tweet.PossiblySensitive == false)
-                        images.Add(image.URL);//MediaURLHttps);
+                        images.Add(image.MediaURLHttps);
                 }
             }
             Package package = new Package();
