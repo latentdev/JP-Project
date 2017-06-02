@@ -315,12 +315,14 @@ footer h1
 </div>
 <script type="text/javascript">
     $ = jQuery;
-    $('.loading-container').hide();
+        $('.loading-container').hide();
     $('#explanation').hide();
     var windowsize = $(window).height(),
         points = [windowsize, windowsize * 2, windowsize * 3,windowsize * 4],
         checks = [false, false, false, false],
         graphs = ['#graph2', '#graph3', '#graph4', '#graph5'];
+
+    
 
     function handleResults(data) {
         //$("#tweettext").text(JSON.stringify(data));
@@ -330,6 +332,7 @@ footer h1
         $('.data1text').text(data.text);
         piechart(d3, data.data, $('#graph1').height()-100, '#graph1');//Math.min($("#graph").height(), $("#graph").width())-200);
         //piechart(d3, data, $('#graph2').height() - 100, '#graph2');
+             
         $.ajax('@Url.Action("timejson", "Graph")', {
             method: 'GET',
             success: handleResults2
@@ -349,7 +352,12 @@ footer h1
     function handleResults3(data)
     {
         $('.data3text').text(data.text);
-        pinmap(data.data,$('#graph3').height(), '#graph3');
+        pinmap(data.data, $('#graph3').height(), '#graph3');
+        
+        //$('#graph3').css({ top: '25%', left: '55%', margin: '-' + ($('#graph3').height() / 2) + 'px 0 0 -' + ($('#graph3').width() / 2) + 'px' })
+
+       
+
         $.ajax({
             url: '@Url.Action("bubbleChartJson", "Graph")',
             type: "GET",
