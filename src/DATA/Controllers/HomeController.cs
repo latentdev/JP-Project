@@ -12,12 +12,12 @@ namespace DATA.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult IndexOld()
         {
             return View();
         }
 
-        public IActionResult Index1()
+        public IActionResult Index()
         {
             return View();
         }

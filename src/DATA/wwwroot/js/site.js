@@ -198,9 +198,9 @@ function pinmap(result,size, tag) {
             .attr('class', 'mark')
             .attr('width', 20)
             .attr('height', 25)
-            .attr("xlink:href", "../../images/locater.svg")//'https://cdn3.iconfinder.com/data/icons/softwaredemo/PNG/24x24/DrawingPin1_Blue.png')
+            .attr("xlink:href", "../../images/locater.svg")
             .attr("transform", function (d) {
-                return "translate(" + projection([d.long, d.lat]) + ")";
+                return "translate(" + projection([d.long-6, d.lat+7.5]) + ")";
             });
     });
     d3.select(self.frameElement).style("height", height + "px");
@@ -269,7 +269,7 @@ function bubblechart(data,size, tag) {
 
 function gallery(data,size,tag)
 {
-    d3.json(data, function (error, imgs) {
+    //d3.json(data, function (error, imgs) {
 
         // Get the modal
         var modal = document.getElementById('myModal');
@@ -290,7 +290,7 @@ function gallery(data,size,tag)
 
 
         // filter out posts without a thumbnail
-        var images = imgs;//imgs.data.children.filter(function (d) {
+        var images = data;//imgs.data.children.filter(function (d) {
             //return d.data.thumbnail.slice(-3) == "jpg";
         //});
 
@@ -306,5 +306,5 @@ function gallery(data,size,tag)
             });
               
         });
-    });
+    //});
 }

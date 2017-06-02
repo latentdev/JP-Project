@@ -33,7 +33,17 @@ namespace DATA.Helper
 
     public class Analysis
     {
-
+        public static List<Package> GetPackages(Tweets tweets)
+        {
+            List<Package> packages = new List<Package>();
+            packages.Add(commonTags(tweets, tweets.searchTerm));
+            packages.Add(FavoriteHashtags(tweets, tweets.searchTerm));
+            packages.Add(HashtagOverTime(tweets, tweets.searchTerm));
+            packages.Add(BubbleChart(tweets));
+            packages.Add(PinMap(tweets));
+            packages.Add(Images(tweets));
+            return packages;
+        }
         public static Package commonTags(Tweets tweets,string search, int top=5)
         {
             List<DataSet> commonTags = new List<DataSet>();
@@ -46,6 +56,7 @@ namespace DATA.Helper
                 }
             }
             tags.RemoveAll(x => x.tag == search.ToLower());
+            int hashtagCount = tags.Distinct().Count();
             while (tags.Count()!=0)
             {
                 
@@ -77,19 +88,66 @@ namespace DATA.Helper
             }
             TopTags.Sort((x, y) => x.data.CompareTo(y.data));
             Package data = new Package();
-            string text = "The most commonly used hashtag was " + TopTags[0].title + " with " + TopTags[0].data + " uses.";
+            string text = "The graph on the left shows the top 5 commonly used hashtags in the tweets found using the search " + tweets.searchTerm + ". We found "+hashtagCount+" unique hashtags. The most commonly used hashtag was " + TopTags[TopTags.Count-1].title + " with " + TopTags[TopTags.Count-1].data + " uses.";
             data.data = TopTags;
             data.text = text;
             return data;
         }
 
-        public static Package FavoriteHashtags()
+        public static Package FavoriteHashtags(Tweets tweets, string search)
         {
-            Package data = new Package();
-            return data;
+            List<string> hashtags = new List<string>();
+            List<DataSet> data = new List<DataSet>();
+            if (tweets!=null)
+            {
+                foreach (var tweet in tweets.tweets)
+                {
+                    foreach (var hashtag in tweet.tweet.Hashtags)
+                    {
+                        if(!hashtags.Contains<string>(hashtag.Text))
+                        {
+                            hashtags.Add(hashtag.Text.ToLower());
+                        }
+
+                    }
+                }
+                var term=search.Remove(0, 1);
+                hashtags=hashtags.Distinct().ToList();
+                hashtags.RemoveAll(x=>x==term.ToLower());
+                foreach (var text in hashtags)
+                {
+                    DataSet tag = new DataSet();
+                    tag.title = text;
+                    data.Add(tag);
+                }
+                foreach (var tweet in tweets.tweets)
+                {
+                    foreach(var hashtag in tweet.tweet.Hashtags)
+                    {
+                        foreach (var d in data)
+                        {
+                            if (d.title==hashtag.Text)
+                            {
+                                d.data += tweet.tweet.FavoriteCount;
+                            }
+                        }
+                    }
+                }
+                data.Sort((x, y) => x.data.CompareTo(y.data));
+            }
+            Package package = new Package();
+            List<DataSet>Top5 = new List<DataSet>();
+            int index = data.Count - 1;
+            for(int i = 0;i<5;i++ )
+            {
+                Top5.Add(data[index]);
+                index--;
+            }
+            package.data = Top5;
+            return package;
         }
 
-        public static List<bubbleModel> bubbleChart(Tweets tweets)
+        public static Package BubbleChart(Tweets tweets)
         {
             List<String> commonwords = Sentiment.ReadFile(System.IO.Directory.GetCurrentDirectory() + @"\wwwroot\Data\Used.txt");
             List<bubbleModel> bubbles = new List<bubbleModel>();
@@ -120,17 +178,19 @@ namespace DATA.Helper
                 if (wordcount[i] > 10 && !commonwords.Contains(wordlist[i].ToLower()) && !wordlist[i].Contains("http"))
                     bubbles.Add(new bubbleModel(wordlist[i], wordcount[i]));
             }
-
-            return bubbles;
+            Package package = new Package();
+            package.data = bubbles;
+            return package;
         }
         //
         //Analyzing hashtag used over period of time
         //
 
-        public static IEnumerable<Day> hashtag(Tweets tweets, string search)
+        public static Package HashtagOverTime(Tweets tweets, string search)
         {
             DateTime startDate = tweets.tweets[0].tweet.CreatedAt;
             DateTime endDate = startDate;
+            Package package = new Package();
             foreach (var tweet in tweets.tweets)
             {
                 // Finding earliest time tweet and latest.
@@ -173,7 +233,8 @@ namespace DATA.Helper
                     }
                 }
                 //count.Sort();
-                return count.OrderBy(x=>x.date);
+                package.data = count.OrderBy(x => x.date);
+                return package;
             }
             else
             {
@@ -205,23 +266,53 @@ namespace DATA.Helper
                     }
 
                 }
-                //count.Sort();
-                return count.OrderBy(x=>x.date);
+
+                package.data = count.OrderBy(x => x.date);
+                return package;
             }
 
         }
-        public static List<string> Images()
+        public static Package PinMap(Tweets tweets)
         {
-            Tweets instance = Tweets.getInstance();
+            List<Tuple<double, double>> geocoords = new List<Tuple<double, double>>();
+            var avglong = 0.0;
+            var avglat = 0.0;
+            foreach (var t in tweets.tweets)
+            {
+                if (t.tweet.Coordinates != null || t.tweet.Place != null)
+                {
+                    if (t.tweet.Coordinates != null)
+                    {
+                        geocoords.Add(new Tuple<double, double>(t.tweet.Coordinates.Longitude, t.tweet.Coordinates.Latitude));
+                    }
+                    else
+                    {
+                        //find center of tweet location bounding box to place pin
+                        avglong = (t.tweet.Place.BoundingBox.Coordinates[0].Longitude + t.tweet.Place.BoundingBox.Coordinates[1].Longitude) / 2;
+                        avglat = (t.tweet.Place.BoundingBox.Coordinates[0].Latitude + t.tweet.Place.BoundingBox.Coordinates[2].Latitude) / 2;
+                        geocoords.Add(new Tuple<double, double>(avglong, avglat));
+                    }
+                }
+            }
+            Package package = new Package();
+            package.data = geocoords;
+            return package;
+        }
+        public static Package Images(Tweets tweets)
+        {
+           
             List<string> images = new List<string>();
-            foreach (var tweet in instance.tweets)
+            foreach (var tweet in tweets.tweets)
             {
                 foreach (var image in tweet.tweet.Media)
                 {
-                    images.Add(image.MediaURLHttps);
+                    if (tweet.tweet.PossiblySensitive == false)
+                        images.Add(image.MediaURLHttps);
                 }
             }
-            return images;
+            Package package = new Package();
+            package.data = images;
+            return package;
         }
     }
 }

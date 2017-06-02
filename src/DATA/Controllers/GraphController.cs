@@ -41,7 +41,7 @@ namespace DATA.Controllers
                     Tweets instance = Tweets.getInstance();
                     instance.tweets = list_of_tweets;
                     instance.searchTerm = search;
-                    var temp = Json(Analysis.commonTags(instance, search));
+                    var temp = Json(Analysis.GetPackages(instance));
                     return temp;
                 }
                 else return Json("search is null"); ;
@@ -51,9 +51,16 @@ namespace DATA.Controllers
                 return Json(e);
             }
         }
+
+
         public ActionResult commonTags()
         {
             return Json(Analysis.commonTags(Tweets.getInstance(),Tweets.getInstance().searchTerm).ToJson());
+        }
+
+        public ActionResult FavoriteHashtags()
+        {
+            return Json(Analysis.FavoriteHashtags(Tweets.getInstance(), Tweets.getInstance().searchTerm));
         }
 
         public ActionResult pinmap()
@@ -66,7 +73,7 @@ namespace DATA.Controllers
         }
         public JsonResult timejson()
             {
-            return Json(Analysis.hashtag(Tweets.getInstance(), Tweets.getInstance().searchTerm));
+            return Json(Analysis.HashtagOverTime(Tweets.getInstance(), Tweets.getInstance().searchTerm));
             }
 
 
@@ -104,38 +111,9 @@ namespace DATA.Controllers
 
         public JsonResult bubbleChartJson()
         {
-            return Json(Analysis.bubbleChart(Tweets.getInstance()));
+            return Json(Analysis.BubbleChart(Tweets.getInstance()));
         }
 
-        /*
-        public JsonResult pinmapjson()
-        {
-            List<Tuple<double, double>> geocoords = new List<Tuple<double, double>>();
-            Package datapack = new Package();
-            Tweets instance = Tweets.getInstance();
-            var avglong = 0.0;
-            var avglat = 0.0;
-            foreach (var t in instance.tweets)
-            {
-                if (t.tweet.Coordinates != null || t.tweet.Place != null)
-                {
-                    if (t.tweet.Coordinates != null)
-                    {
-                        geocoords.Add(new Tuple<double, double>(t.tweet.Coordinates.Longitude, t.tweet.Coordinates.Latitude));
-                    }
-                    else
-                    {
-                        //find center of tweet location bounding box to place pin
-                        avglong = (t.tweet.Place.BoundingBox.Coordinates[0].Longitude + t.tweet.Place.BoundingBox.Coordinates[1].Longitude) / 2;
-                        avglat = (t.tweet.Place.BoundingBox.Coordinates[0].Latitude + t.tweet.Place.BoundingBox.Coordinates[2].Latitude) / 2;
-                        geocoords.Add(new Tuple<double, double>(avglong, avglat));
-                    }
-                }
-            }
-
-            return Json(geocoords);
-        }
-        */
 
         public JsonResult pinmapjson()
         {
@@ -174,9 +152,10 @@ namespace DATA.Controllers
         }
 
 
+
         public JsonResult Images()
         {
-            return Json(Analysis.Images());
+            return Json(Analysis.Images(Tweets.getInstance()));
         }
     }
 }
