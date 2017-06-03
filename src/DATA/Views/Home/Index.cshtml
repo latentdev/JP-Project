@@ -65,6 +65,7 @@
   /*z-index: -4;*/
 }
 
+
 .datatext
 {
     color:#9D9D9D;
@@ -307,20 +308,28 @@ footer h1
                     </div>
                 </section>
 
-                <section class="content" id="content2">
-                    <p>Content 2</p>
+                <section class="content" id="content2head">
+                    <div class="col-6">
+                        <p class="datatext" id="content2">Content 2</p>
+                    </div>
                 </section>
 
-                <section class="content" id="content3">
-                    <p>Content 3</p>
+                <section class="content" id="content3head">
+                    <div class="col-6">
+                        <p class="datatext" id="content3">Content 3</p>
+                    </div>
                 </section>
 
-                <section class="content" id="content4">
-                    <p>Content 4</p>
+                <section class="content" id="content4head">
+                    <div class="col-6">
+                        <p class="datatext" id="content4">Content 4</p>
+                    </div>
                 </section>
 
-                <section class="content" id="content5">
-                    <p>Content 5</p>
+                <section class="content" id="content5head">
+                    <div class="col-6">
+                        <p class="datatext" id="content5">Content 5</p>
+                    </div>
                 </section>
             </div>
         </div>
@@ -356,8 +365,8 @@ footer h1
         $('#content1left').text(data[0].text);
         $('#content1right').text(data[1].text);
         $('#content2').text(data[2].text);
-        $('#content3').text(data[3].text);
-        $('#content4').text(data[4].text);
+        $('#content3').text(data[4].text); //4 is geo
+        $('#content4').text(data[3].text);
         $('#content5').text(data[5].text);
         $('.graphstylestart').css('top', $('.navbar').height());
         piechart(d3, data[0].data, $('#graph1').height() - 100, '#graph1');

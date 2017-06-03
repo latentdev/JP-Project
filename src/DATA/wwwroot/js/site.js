@@ -261,7 +261,8 @@ function bubblechart(data,size, tag) {
         .styles({
             "fill": "#9d9d9d" ,
             "font-family": "Coda', cursive",
-            "font-size": "12px"
+            "font-size": "14px",
+            "font-weight": "bold"
         });
 
 

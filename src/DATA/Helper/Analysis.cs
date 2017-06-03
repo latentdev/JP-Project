@@ -179,7 +179,9 @@ namespace DATA.Helper
                     bubbles.Add(new bubbleModel(wordlist[i], wordcount[i]));
             }
             Package package = new Package();
+            string txt = "This is a bubble chart (read: word cloud) of words most commonly seen in your search results.";
             package.data = bubbles;
+            package.text = txt;
             return package;
         }
         //
@@ -234,6 +236,8 @@ namespace DATA.Helper
                 }
                 //count.Sort();
                 package.data = count.OrderBy(x => x.date);
+                string txt = "This graph shows your search term's usage over a time period. The time period is generated based on result data!";
+                package.text = txt;
                 return package;
             }
             else
@@ -268,6 +272,8 @@ namespace DATA.Helper
                 }
 
                 package.data = count.OrderBy(x => x.date);
+                string txt = "This graph shows your search term's usage over a time period. The time period is generated based on result data!";
+                package.text = txt;
                 return package;
             }
 
@@ -275,12 +281,18 @@ namespace DATA.Helper
         public static Package PinMap(Tweets tweets)
         {
             List<Tuple<double, double>> geocoords = new List<Tuple<double, double>>();
+            Package datapack = new Package();
+            Tweets instance = Tweets.getInstance();
             var avglong = 0.0;
             var avglat = 0.0;
-            foreach (var t in tweets.tweets)
+            double count = 0.0;
+            double geocount = 0.0;
+            foreach (var t in instance.tweets)
             {
+                count++;
                 if (t.tweet.Coordinates != null || t.tweet.Place != null)
                 {
+                    geocount++;
                     if (t.tweet.Coordinates != null)
                     {
                         geocoords.Add(new Tuple<double, double>(t.tweet.Coordinates.Longitude, t.tweet.Coordinates.Latitude));
@@ -294,9 +306,12 @@ namespace DATA.Helper
                     }
                 }
             }
-            Package package = new Package();
-            package.data = geocoords;
-            return package;
+            datapack.data = geocoords;
+            var geopercent = Math.Round((geocount / count) * 100, 2);
+            string sendstr = "This map shows an approximate location from each tweet with relevant data. Geo data is very sparse because it must be manually enabled for twitter. For this search only " +
+                             geopercent + "% of tweets contain geo data.";
+            datapack.text = sendstr;
+            return datapack;
         }
         public static Package Images(Tweets tweets)
         {
@@ -311,7 +326,9 @@ namespace DATA.Helper
                 }
             }
             Package package = new Package();
+            string txt ="Twitter allows users to add an image to their tweets that is not included in the length of the tweet (URLs tend to be long). This section is a gallery of photos linked to by twitter users.";
             package.data = images;
+            package.text = txt;
             return package;
         }
     }

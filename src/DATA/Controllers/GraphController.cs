@@ -117,6 +117,8 @@ namespace DATA.Controllers
 
         public JsonResult pinmapjson()
         {
+            return Json(Analysis.PinMap(Tweets.getInstance()));
+            /*
             List<Tuple<double, double>> geocoords = new List<Tuple<double, double>>();
             Package datapack = new Package();
             Tweets instance = Tweets.getInstance();
@@ -149,6 +151,7 @@ namespace DATA.Controllers
                              geopercent + "% of tweets contain geo data.";
             datapack.text = sendstr;
             return Json(datapack);
+            */
         }
 
 
