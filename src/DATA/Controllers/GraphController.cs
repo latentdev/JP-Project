@@ -52,6 +52,10 @@ namespace DATA.Controllers
             }
         }
 
+        public ActionResult BarGraph()
+        {
+            return Json(Analysis.commonTags(Tweets.getInstance(), Tweets.getInstance().searchTerm).ToJson());
+        }
 
         public ActionResult commonTags()
         {

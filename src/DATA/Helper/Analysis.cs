@@ -146,7 +146,12 @@ namespace DATA.Helper
             package.data = Top5;
             return package;
         }
+        /*
+        public static Package BarGraph(Tweets tweets)
+        {
 
+        }
+        */
         public static Package BubbleChart(Tweets tweets)
         {
             List<String> commonwords = Sentiment.ReadFile(System.IO.Directory.GetCurrentDirectory() + @"\wwwroot\Data\Used.txt");

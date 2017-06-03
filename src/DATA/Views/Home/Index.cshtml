@@ -11,6 +11,8 @@
   z-index:1;
 }
 
+ .bar { fill: steelblue; }
+
 .scroll-animate-main
 {
   width: 100%;
@@ -374,7 +376,8 @@ footer h1
         piechart(d3, data[1].data, $('#graphfavorites').height() - 100, '#graphfavorites');
         timegraph(d3, data[2].data, $('#graph2').height() - 100, '#graph2');
         pinmap(data[4].data, $('#graph3').height(), '#graph3');
-        bubblechart(data[3].data, $('#graph4').height() - 100, '#graph4');
+        //bubblechart(data[3].data, $('#graph4').height() - 100, '#graph4');
+        BarGraph(d3, data[0].data, $('#graph4').height() - 200, '#graph4');
         gallery(data[5].data, 0, '#graph5');
     };
 
