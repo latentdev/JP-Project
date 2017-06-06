@@ -91,6 +91,7 @@ namespace DATA.Helper
             string text = "The graph on the left shows the top 5 commonly used hashtags in the tweets found using the search " + tweets.searchTerm + ". We found "+hashtagCount+" unique hashtags. The most commonly used hashtag was " + TopTags[TopTags.Count-1].title + " with " + TopTags[TopTags.Count-1].data + " uses.";
             data.data = TopTags;
             data.text = text;
+            data.title = "Commonly Used Hashtags";
             return data;
         }
 
@@ -144,6 +145,8 @@ namespace DATA.Helper
                 index--;
             }
             package.data = Top5;
+            package.text = "This graph shows the hashtags that accumulated the most favorites. The best hashtag to use is "+Top5[0].title+" with " + Top5[0].data + " favorites.";
+            package.title = "Hashtags With The Most Favorites";
             return package;
         }
 
@@ -178,8 +181,11 @@ namespace DATA.Helper
                 if (wordcount[i] > 10 && !commonwords.Contains(wordlist[i].ToLower()) && !wordlist[i].Contains("http"))
                     bubbles.Add(new bubbleModel(wordlist[i], wordcount[i]));
             }
+            string txt = "This is a bubble chart (read: word cloud) of words most commonly seen in your search results.";
             Package package = new Package();
             package.data = bubbles;
+            package.text = txt;
+            package.title = "Word Use in Tweets Containing "+ tweets.searchTerm;
             return package;
         }
         //
@@ -191,6 +197,7 @@ namespace DATA.Helper
             DateTime startDate = tweets.tweets[0].tweet.CreatedAt;
             DateTime endDate = startDate;
             Package package = new Package();
+            package.title = search + " Use Over a Period of Time";
             foreach (var tweet in tweets.tweets)
             {
                 // Finding earliest time tweet and latest.
@@ -233,7 +240,10 @@ namespace DATA.Helper
                     }
                 }
                 //count.Sort();
+                string txt = "This graph shows your search term's usage over a time period. The time period is generated based on result data!";
+
                 package.data = count.OrderBy(x => x.date);
+                package.text = txt;
                 return package;
             }
             else
@@ -266,8 +276,9 @@ namespace DATA.Helper
                     }
 
                 }
-
+                string txt = "This graph shows your search term's usage over a time period. The time period is generated based on result data!";
                 package.data = count.OrderBy(x => x.date);
+                package.text = txt;
                 return package;
             }
 
@@ -277,10 +288,14 @@ namespace DATA.Helper
             List<Tuple<double, double>> geocoords = new List<Tuple<double, double>>();
             var avglong = 0.0;
             var avglat = 0.0;
+            double count = 0.0;
+            double geocount = 0.0;
             foreach (var t in tweets.tweets)
             {
+                count++;
                 if (t.tweet.Coordinates != null || t.tweet.Place != null)
                 {
+                    geocount++;
                     if (t.tweet.Coordinates != null)
                     {
                         geocoords.Add(new Tuple<double, double>(t.tweet.Coordinates.Longitude, t.tweet.Coordinates.Latitude));
@@ -294,8 +309,13 @@ namespace DATA.Helper
                     }
                 }
             }
+            var geopercent = Math.Round((geocount / count) * 100, 2);
+            string sendstr = "This map shows an approximate location from each tweet with relevant data. Geo data is very sparse because it must be manually enabled for twitter. For this search only " +
+                             geopercent + "% of tweets contain geo data.";
             Package package = new Package();
             package.data = geocoords;
+            package.text = sendstr;
+            package.title = "Source of Tweets Using " + tweets.searchTerm;
             return package;
         }
         public static Package Images(Tweets tweets)
@@ -310,8 +330,10 @@ namespace DATA.Helper
                         images.Add(image.MediaURLHttps);
                 }
             }
+            string txt = "Twitter allows users to add an image to their tweets that is not included in the length of the tweet (URLs tend to be long). This section is a gallery of photos linked to by twitter users.";
             Package package = new Package();
             package.data = images;
+            package.text = txt;
             return package;
         }
     }

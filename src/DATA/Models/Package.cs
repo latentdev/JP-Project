@@ -8,6 +8,7 @@ namespace DATA.Models
 {
     public class Package
     {
+        public string title { get; set; }
         public string text { set; get; }
         public IEnumerable data { set; get; }
     }

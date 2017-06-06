@@ -37,7 +37,7 @@
   right: 0;
 }
 
-#graphtitle
+.graphtitle
 {
     margin-top:10px;
     margin-bottom:10px;
@@ -269,23 +269,29 @@ footer h1
     <div id="scroll-animate">
         <div class="scroll-animate-main">
             <div class="col-6 graphstylestart" id="graph1" style="">
-                <p id="graphtitle">Commonly Used Hashtags</p>
+                <p class="graphtitle" id="graphtitle1left">Commonly Used Hashtags</p>
             </div>
             <div class="col-6 graphstylestart" id="graphfavorites" style="">
-                <p id="graphtitle">Hashtags With The Most Favorites</p>
+                <p class="graphstitle" id="graphtitle1right">Hashtags With The Most Favorites</p>
             </div>
         </div>
         <div class="scroll-animate-main">
             
-            <section class="graphstyle" id="graph2"></section>
+            <section class="graphstyle" id="graph2">
+                <p class="graphtitle" id="graphtitle2"></p>
+            </section>
 
         </div>
         <div class="scroll-animate-main">
-            <section class="graphstyle" id="graph3"></section>
+            <section class="graphstyle" id="graph3">
+                <p class="graphtitle" id="graphtitle3"></p>
+            </section>
 
         </div>
         <div class="scroll-animate-main">
-            <section class="graphstyle" id="graph4"></section>
+            <section class="graphstyle" id="graph4">
+                <p class="graphtitle" id="graphtitle4"></p>
+            </section>
 
         </div>
         <div class="scroll-animate-main">
@@ -297,28 +303,33 @@ footer h1
             <div class="wrapper-parallax" style="pointer-events: none;">
 
                 <section class="content" id="content1">
-                    <div class="col-6">
-                        <p class="datatext" id="content1left">Content 1</p>
+                    <div class="col-md-5">
+                        <p class="datatext" id="content1left" >Content 1</p>
                     </div>
-                    <div class="col-6">
+                    @**<div class="col-md-2" style="border-left:1vw solid #9D9D9D;height:100%">*@
+                        <div class="col-md-2" style="height:100%">
+
+
+                         </div>
+                    <div class="col-md-5">
                         <p class="datatext" id="content1right"></p>
                     </div>
                 </section>
 
                 <section class="content" id="content2">
-                    <p>Content 2</p>
+                    <p class="datatext" id="content2text">Content 2</p>
                 </section>
 
                 <section class="content" id="content3">
-                    <p>Content 3</p>
+                    <p class="datatext" id="content3text">Content 3</p>
                 </section>
 
                 <section class="content" id="content4">
-                    <p>Content 4</p>
+                    <p class="datatext" id="content4text">Content 4</p>
                 </section>
 
                 <section class="content" id="content5">
-                    <p>Content 5</p>
+                    <p class="datatext" id="content5text">Content 5</p>
                 </section>
             </div>
         </div>
@@ -350,12 +361,17 @@ footer h1
         $('#searchbox').hide();
         $('.loading-container').hide();
         $('#scroll-animate').show();
+        $('#graphtitle1left').text(data[0].title);
         $('#content1left').text(data[0].text);
+        $('#graphtitle1right').text(data[1].title);
         $('#content1right').text(data[1].text);
-        $('#content2').text(data[2].text);
-        $('#content3').text(data[3].text);
-        $('#content4').text(data[4].text);
-        $('#content5').text(data[5].text);
+        $('#graphtitle2').text(data[2].title);
+        $('#content2text').text(data[2].text);
+        $('#graphtitle3').text(data[4].title);
+        $('#content3text').text(data[4].text);
+        $('#graphtitle4').text(data[3].title);
+        $('#content4text').text(data[3].text);
+        $('#content5text').text(data[5].text);
         $('.graphstylestart').css('top', $('.navbar').height());
         piechart(d3, data[0].data, $('#graph1').height() - 100, '#graph1');
         //$('#graphfavorites').css('margin-left', $('.scroll-animate-main').width() - ($('#graph1').width() * 2));
