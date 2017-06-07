@@ -11,7 +11,7 @@
   z-index:1;
 }
 
- .bar { fill: steelblue; }
+ .bar { fill: steelblue; } 
 
 .scroll-animate-main
 {
@@ -368,7 +368,7 @@ footer h1
         $('#content1right').text(data[1].text);
         $('#content2').text(data[2].text);
         $('#content3').text(data[4].text); //4 is geo
-        $('#content4').text(data[3].text);
+        //$('#content4').text(data[3].text);
         $('#content5').text(data[5].text);
         $('.graphstylestart').css('top', $('.navbar').height());
         piechart(d3, data[0].data, $('#graph1').height() - 100, '#graph1');
@@ -378,6 +378,7 @@ footer h1
         pinmap(data[4].data, $('#graph3').height(), '#graph3');
         //bubblechart(data[3].data, $('#graph4').height() - 100, '#graph4');
         BarGraph(d3, data[0].data, $('#graph4').height() - 200, '#graph4');
+        $('#content4').text(JSON.stringify( data[0].data));
         gallery(data[5].data, 0, '#graph5');
     };
 

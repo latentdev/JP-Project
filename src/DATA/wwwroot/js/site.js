@@ -105,7 +105,7 @@ function BarGraph(d3, data, size, tag)
         // Scale the range of the data in the domains
         x.domain(data.map(function(d) { return d.title; }));
         y.domain([0, d3.max(data, function(d) { return d.sentiment; })]);
-
+    
         // append the rectangles for the bar chart
         svg.selectAll(".bar")
             .data(data)
@@ -114,7 +114,7 @@ function BarGraph(d3, data, size, tag)
             .attr("x", function(d) { return x(d.title); })
             .attr("width", x.bandwidth())
             .attr("y", function(d) { return y(d.sentiment); })
-            .attr("height", function(d) { return height - y(d.sentiment); });
+            .attr("height", function(d) { return height - y(d.sentiment); }); 
 
         // add the x Axis
         svg.append("g")

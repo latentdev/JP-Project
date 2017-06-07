@@ -90,6 +90,7 @@ namespace DATA.Helper
             Package data = new Package();
             string text = "The graph on the left shows the top 5 commonly used hashtags in the tweets found using the search " + tweets.searchTerm + ". We found "+hashtagCount+" unique hashtags. The most commonly used hashtag was " + TopTags[TopTags.Count-1].title + " with " + TopTags[TopTags.Count-1].data + " uses.";
             data.data = TopTags;
+            
             data.text = text;
             return data;
         }
@@ -241,7 +242,7 @@ namespace DATA.Helper
                 }
                 //count.Sort();
                 package.data = count.OrderBy(x => x.date);
-                string txt = "This graph shows your search term's usage over a time period. The time period is generated based on result data!";
+                string txt = "This graph shows your search term's usage over a time period. The time period is automatically scaled based on results from your search.";
                 package.text = txt;
                 return package;
             }
